@@ -1,0 +1,2844 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THPT QUANG TRUNG - ÔN THI THPT MÔN HÓA HỌC 2026-2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-navy: #0d274c;
+      --primary-blue: #1d4ed8;
+      --accent-blue: #2563eb;
+      --light-blue: #eff6ff;
+      --border-blue: #bfdbfe;
+      --chem-teal: #0d9488;
+      --chem-cyan: #0284c7;
+      --bg-slate: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-sub: #334155;
+      --border-color: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --warning: #ea580c;
+      --warning-bg: #ffedd5;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-slate);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Mũ Trạng Nguyên Watermark in Background */
+    .watermark-bg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(85vw, 650px);
+      height: min(85vw, 650px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.045;
+    }
+
+    /* Floating Chemical Icons Background */
+    .floating-chem-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .chem-float-icon {
+      position: absolute;
+      opacity: 0.05;
+      animation: floatSlow 24s infinite ease-in-out alternate;
+    }
+    .chem-float-icon:nth-child(1) { top: 8%; left: 4%; width: 90px; height: 90px; animation-duration: 20s; }
+    .chem-float-icon:nth-child(2) { top: 22%; right: 5%; width: 110px; height: 110px; animation-duration: 26s; animation-delay: -3s; }
+    .chem-float-icon:nth-child(3) { bottom: 12%; left: 7%; width: 100px; height: 100px; animation-duration: 22s; animation-delay: -5s; }
+    .chem-float-icon:nth-child(4) { bottom: 18%; right: 6%; width: 115px; height: 115px; animation-duration: 28s; animation-delay: -7s; }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(8deg); }
+      100% { transform: translateY(10px) rotate(-6deg); }
+    }
+
+    /* Top Navigation / App Header */
+    header.app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid #e2e8f0;
+      box-shadow: 0 4px 20px -2px rgba(13, 39, 76, 0.08);
+      transition: all 0.3s;
+    }
+
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand-logo-wrap {
+      width: 54px;
+      height: 54px;
+      background: linear-gradient(135deg, #0d274c 0%, #1e3a8a 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(13, 39, 76, 0.25);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-wrap svg {
+      width: 34px;
+      height: 34px;
+      fill: #ffffff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .school-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #0d274c;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .course-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0f3460; /* Dark navy blue required */
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.3;
+    }
+
+    .chem-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 1px 8px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1d4ed8 0%, #0d274c 100%);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(29, 78, 216, 0.25);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #0d274c;
+      border-color: #cbd5e1;
+    }
+    .btn-outline:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .btn-teacher {
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+    .btn-teacher:hover {
+      background: #dbeafe;
+      color: #1e3a8a;
+      border-color: #93c5fd;
+    }
+
+    .btn-success {
+      background: #16a34a;
+      color: #ffffff;
+    }
+    .btn-success:hover {
+      background: #15803d;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: #ffffff;
+    }
+    .btn-danger:hover {
+      background: #b91c1c;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+
+    /* Main Container */
+    main.main-content {
+      position: relative;
+      z-index: 10;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      min-height: calc(100vh - 180px);
+    }
+
+    /* Page View Containers */
+    .view-panel {
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* VIEW 1: STUDENT LOGIN */
+    .hero-login-card {
+      max-width: 520px;
+      margin: 30px auto;
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid #e2e8f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-login-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #0d274c, #2563eb, #0d9488);
+    }
+
+    .login-icon-wrap {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 18px;
+      background: #eff6ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed #bfdbfe;
+    }
+
+    .login-icon-wrap svg {
+      width: 38px;
+      height: 38px;
+      fill: #1d4ed8;
+    }
+
+    .login-title {
+      text-align: center;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #0d274c;
+      margin-bottom: 6px;
+    }
+
+    .login-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      background-color: #f8fafc;
+      color: #0f172a;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: #2563eb;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* VIEW 2: EXAM SELECTION */
+    .section-header-box {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-bottom: 26px;
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .student-badge-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .student-avatar {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #0d274c, #1d4ed8);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(13, 39, 76, 0.2);
+    }
+
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+    }
+
+    .exam-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 26px 24px;
+      border: 1.5px solid #e2e8f0;
+      box-shadow: var(--shadow-md);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exam-card:hover {
+      border-color: #3b82f6;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+
+    .exam-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+
+    .exam-card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #0d274c;
+      margin-bottom: 8px;
+    }
+
+    .exam-card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .exam-meta-list {
+      list-style: none;
+      margin-bottom: 20px;
+      border-top: 1px solid #f1f5f9;
+      border-bottom: 1px solid #f1f5f9;
+      padding: 12px 0;
+    }
+
+    .exam-meta-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--text-sub);
+    }
+    .exam-meta-item:last-child {
+      margin-bottom: 0;
+    }
+    .exam-meta-item span:first-child {
+      color: var(--text-muted);
+    }
+    .exam-meta-item span:last-child {
+      font-weight: 600;
+    }
+
+    .exam-status-box {
+      font-size: 0.82rem;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .status-not-done {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+    .status-done {
+      background: #dcfce7;
+      color: #15803d;
+      font-weight: 600;
+    }
+
+    /* VIEW 3: EXAM TAKING VIEW */
+    .exam-sticky-bar {
+      position: sticky;
+      top: 75px;
+      z-index: 90;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .exam-active-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .timer-display-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #0d274c;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.15rem;
+      box-shadow: 0 2px 6px rgba(13, 39, 76, 0.25);
+    }
+
+    .timer-display-box.warning {
+      background: #dc2626;
+      animation: pulseAlert 1.5s infinite;
+    }
+
+    @keyframes pulseAlert {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.88; transform: scale(1.02); }
+    }
+
+    .exam-workspace {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .exam-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Palette Sidebar */
+    .question-palette-card {
+      position: sticky;
+      top: 155px;
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-md);
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+    }
+
+    .palette-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0d274c;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .palette-group-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 12px 0 6px;
+    }
+
+    .palette-btn-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .palette-btn {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .palette-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .palette-btn.answered {
+      background: #1d4ed8;
+      color: #ffffff;
+      border-color: #1d4ed8;
+    }
+
+    /* Exam Question Content */
+    .exam-section-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 22px;
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-banner {
+      background: linear-gradient(135deg, #0d274c 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+    }
+
+    .section-banner h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .section-banner p {
+      font-size: 0.82rem;
+      opacity: 0.9;
+    }
+
+    .question-item {
+      padding: 20px 0;
+      border-bottom: 1px solid #f1f5f9;
+      scroll-margin-top: 140px;
+    }
+    .question-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .question-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+
+    .question-badge-num {
+      display: inline-block;
+      background: #0d274c;
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    /* Part 1 Options Grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #f8fafc;
+    }
+
+    .option-label:hover {
+      background: #ffffff;
+      border-color: #93c5fd;
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 3px;
+      accent-color: #1d4ed8;
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .option-label.selected {
+      background: #eff6ff;
+      border-color: #2563eb;
+      font-weight: 500;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      color: #1e3a8a;
+      flex-shrink: 0;
+    }
+
+    /* Part 2 True/False Table */
+    .context-block {
+      background: #f1f5f9;
+      border-left: 4px solid #2563eb;
+      padding: 12px 16px;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+      white-space: pre-line;
+      line-height: 1.55;
+    }
+
+    .tf-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .tf-table th, .tf-table td {
+      padding: 12px 14px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.9rem;
+    }
+
+    .tf-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #334155;
+      text-align: center;
+    }
+
+    .tf-table th:first-child {
+      text-align: left;
+    }
+
+    .tf-btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-tf {
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-tf:hover {
+      background: #f1f5f9;
+    }
+
+    .btn-tf.selected-true {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #16a34a;
+      font-weight: 700;
+    }
+
+    .btn-tf.selected-false {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-color: #dc2626;
+      font-weight: 700;
+    }
+
+    /* Part 3 Short Answer */
+    .short-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 360px;
+      margin-top: 12px;
+    }
+
+    .short-input {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 10px 14px;
+      border: 2px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      width: 180px;
+      text-align: center;
+      color: #0f172a;
+    }
+
+    .short-input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* REVIEW / EXPLANATION CARD */
+    .solution-box {
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    .solution-box h5 {
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #166534;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* VIEW 4: RESULT SCREEN */
+    .result-hero-card {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid #e2e8f0;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0d274c 0%, #1d4ed8 100%);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 10px 25px -5px rgba(29, 78, 216, 0.4);
+    }
+
+    .score-circle .big-num {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .score-circle .scale-sub {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      font-weight: 500;
+    }
+
+    .score-parts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .part-score-item {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid #e2e8f0;
+    }
+
+    .part-score-item .label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .part-score-item .val {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0d274c;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* VIEW 5: TEACHER DASHBOARD */
+    .teacher-panel-header {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .teacher-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0d274c;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .table-container {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+      margin-bottom: 28px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .data-table th, .data-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .data-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    .data-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    /* Google Sheets Integration Card */
+    .gsheet-box {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1.5px solid #bbf7d0;
+      padding: 24px;
+      margin-top: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gsheet-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .gsheet-icon {
+      width: 36px;
+      height: 36px;
+      background: #0f9d58;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      margin: 12px 0;
+      position: relative;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid #e2e8f0;
+      position: relative;
+      animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast-msg {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.3s ease-out;
+      pointer-events: auto;
+    }
+
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Print styling */
+    @media print {
+      header.app-header, .exam-sticky-bar, .question-palette-card, .btn {
+        display: none !important;
+      }
+      .exam-workspace {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Watermark: Mũ Trạng Nguyên SVG -->
+  <svg class="watermark-bg" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+    <!-- Mũ Trạng Nguyên truyền thống: Đỉnh mũ, thân mũ, hai cánh chuồn ngang và dải lụa -->
+    <g fill="none" stroke="#0d274c" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Cánh chuồn bên trái (Trang Nguyen Wing Left) -->
+      <path d="M 180 250 C 130 240, 50 250, 30 220 C 15 200, 30 180, 80 185 C 130 190, 170 210, 190 230 Z" fill="#0d274c" fill-opacity="0.15" />
+      <path d="M 60 200 C 100 205, 140 220, 180 235" />
+      
+      <!-- Cánh chuồn bên phải (Trang Nguyen Wing Right) -->
+      <path d="M 420 250 C 470 240, 550 250, 570 220 C 585 200, 570 180, 520 185 C 470 190, 430 210, 410 230 Z" fill="#0d274c" fill-opacity="0.15" />
+      <path d="M 540 200 C 500 205, 460 220, 420 235" />
+      
+      <!-- Thân Mũ Trạng Nguyên (Crown Body) -->
+      <path d="M 210 270 L 230 170 C 230 150, 270 130, 300 130 C 330 130, 370 150, 370 170 L 390 270 Z" fill="#0d274c" fill-opacity="0.1" />
+      
+      <!-- Vành mũ cong (Brim) -->
+      <path d="M 170 270 C 240 295, 360 295, 430 270 C 410 255, 190 255, 170 270 Z" fill="#0d274c" fill-opacity="0.2" />
+      
+      <!-- Đỉnh chóp ngọc (Top Finial / Jewel) -->
+      <circle cx="300" cy="115" r="16" fill="#0d274c" fill-opacity="0.2" />
+      <path d="M 300 90 L 300 100" />
+      <path d="M 290 95 L 310 95" />
+      
+      <!-- Hoa văn phía trước mũ (Emblem decoration) -->
+      <circle cx="300" cy="205" r="24" fill="#0d274c" fill-opacity="0.15" />
+      <path d="M 285 205 Q 300 190 315 205 Q 300 220 285 205 Z" fill="#0d274c" fill-opacity="0.3" />
+      
+      <!-- Dải lụa buông (Ribbons) -->
+      <path d="M 220 285 C 210 330, 230 380, 215 430" stroke-dasharray="10 6" />
+      <path d="M 380 285 C 390 330, 370 380, 385 430" stroke-dasharray="10 6" />
+    </g>
+  </svg>
+
+  <!-- Floating Chemistry Icons Background -->
+  <div class="floating-chem-bg">
+    <!-- Erlenmeyer Flask -->
+    <svg class="chem-float-icon" viewBox="0 0 24 24" fill="#0d274c">
+      <path d="M19.8 18.4L14 9V4h1c.6 0 1-.4 1-1s-.4-1-1-1H9c-.6 0-1 .4-1 1s.4 1 1 1h1v5L4.2 18.4C3.5 19.5 4.3 21 5.6 21h12.8c1.3 0 2.1-1.5 1.4-2.6zM7.2 17l3.8-6.1V4h2v6.9L16.8 17H7.2z"/>
+    </svg>
+    <!-- Benzene Ring -->
+    <svg class="chem-float-icon" viewBox="0 0 24 24" fill="none" stroke="#0d274c" stroke-width="1.8">
+      <polygon points="12 2 21 7 21 17 12 22 3 17 3 7"/>
+      <circle cx="12" cy="12" r="5"/>
+    </svg>
+    <!-- Atom Orbitals -->
+    <svg class="chem-float-icon" viewBox="0 0 24 24" fill="none" stroke="#0d274c" stroke-width="1.8">
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"/>
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(90 12 12)"/>
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(150 12 12)"/>
+      <circle cx="12" cy="12" r="2.5" fill="#0d274c"/>
+    </svg>
+    <!-- Test Tubes in Rack -->
+    <svg class="chem-float-icon" viewBox="0 0 24 24" fill="#0d274c">
+      <path d="M7 2v11a3 3 0 1 0 6 0V2H7zm4 11a1 1 0 0 1-2 0V4h2v9zM19 13v-2h-4V9h4V7h-4V4h4c.6 0 1-.4 1-1s-.4-1-1-1h-5c-.6 0-1 .4-1 1v17c0 1.7 1.3 3 3 3h3c1.7 0 3-1.3 3-3v-7h-4zm2 7c0 .6-.4 1-1 1h-3c-.6 0-1-.4-1-1v-5h5v5z"/>
+    </svg>
+  </div>
+
+  <!-- Main Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section" onclick="navigateToHome()">
+        <div class="brand-logo-wrap">
+          <!-- Molecule / Atom Symbol -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm6.5 4.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5.5 7.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm11 9a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-11 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM12 10.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+            <line x1="12" y1="7" x2="12" y2="10.5" stroke="#fff" stroke-width="1.5"/>
+            <line x1="13.2" y1="12.8" x2="15.5" y2="17.2" stroke="#fff" stroke-width="1.5"/>
+            <line x1="10.8" y1="12.8" x2="8.5" y2="17.2" stroke="#fff" stroke-width="1.5"/>
+            <line x1="13.5" y1="11.5" x2="16.5" y2="9.5" stroke="#fff" stroke-width="1.5"/>
+            <line x1="10.5" y1="11.5" x2="7.5" y2="9.5" stroke="#fff" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="school-name">THPT QUANG TRUNG</div>
+          <div class="course-title">
+            ÔN THI THPT MÔN HÓA HỌC 2026-2027
+            <span class="chem-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="10"/>
+              </svg>
+              Đề thi chuẩn hóa
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btnSwitchToStudent" class="btn btn-outline btn-sm" style="display:none;" onclick="navigateToSelectExam()">
+          Về trang học sinh
+        </button>
+        <button id="btnOpenTeacherModal" class="btn btn-teacher btn-sm" onclick="openTeacherLoginModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          Dành cho Giáo viên
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Areas -->
+  <main class="main-content">
+
+    <!-- VIEW 1: STUDENT LOGIN -->
+    <div id="viewStudentLogin" class="view-panel active">
+      <div class="hero-login-card">
+        <div class="login-icon-wrap">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </div>
+        <h2 class="login-title">Học Sinh Đăng Nhập</h2>
+        <p class="login-sub">Nhập thông tin để bắt đầu luyện tập 3 đề thi chuẩn hóa THPT</p>
+
+        <form id="studentLoginForm" onsubmit="handleStudentLogin(event)">
+          <div class="form-group">
+            <label class="form-label" for="inputStudentName">Họ và tên thí sinh *</label>
+            <input type="text" id="inputStudentName" class="form-input" placeholder="Ví dụ: Nguyễn Văn An" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputStudentClass">Lớp học *</label>
+            <input type="text" id="inputStudentClass" class="form-input" placeholder="Ví dụ: 12A1, 12A2, 12Hóa..." required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:13px; font-size:1rem; margin-top:8px;">
+            Vào phòng làm bài thi
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- VIEW 2: EXAM SELECTION (LIST GỒM 3 ĐỀ THI) -->
+    <div id="viewExamSelect" class="view-panel">
+      <div class="section-header-box">
+        <div class="student-badge-info">
+          <div class="student-avatar" id="avatarLetter">A</div>
+          <div>
+            <h3 style="font-size:1.15rem; color:#0d274c;" id="displayStudentHeader">Học sinh: Nguyễn Văn An</h3>
+            <p style="font-size:0.86rem; color:var(--text-muted);" id="displayClassHeader">Lớp: 12A1 • Trường THPT Quang Trung</p>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-outline btn-sm" onclick="logoutStudent()">Đổi thông tin học sinh</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h2 style="font-size:1.4rem; color:#0d274c; font-weight:800;">Danh Sách Đề Thi Luyện Tập</h2>
+        <p style="color:var(--text-muted); font-size:0.9rem;">Học sinh chọn 1 trong 3 đề thi dưới đây để làm bài. Thời gian mỗi đề là 50 phút.</p>
+      </div>
+
+      <div class="exam-grid" id="examSelectionGrid">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+
+    <!-- VIEW 3: EXAM TAKING (LÀM BÀI VỚI ĐỒNG HỒ 50 PHÚT) -->
+    <div id="viewExamTaking" class="view-panel">
+      <div class="exam-sticky-bar">
+        <div class="exam-active-info">
+          <button class="btn btn-outline btn-sm" onclick="confirmExitExam()">
+            ← Thoát
+          </button>
+          <div>
+            <h4 style="font-size:1.05rem; color:#0d274c;" id="takingExamTitle">ĐỀ SỐ 01</h4>
+            <span style="font-size:0.82rem; color:var(--text-muted);" id="takingCandidateInfo">Thí sinh: Nguyễn Văn An - 12A1</span>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div class="timer-display-box" id="examTimerBox">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span id="examTimerText">50:00</span>
+          </div>
+          <button class="btn btn-primary" onclick="confirmSubmitExam()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Nộp bài
+          </button>
+        </div>
+      </div>
+
+      <div class="exam-workspace">
+        <!-- Questions Area -->
+        <div id="examQuestionsContainer">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Palette Sticky Sidebar -->
+        <div class="question-palette-card">
+          <div class="palette-title">
+            <span>Bảng câu hỏi</span>
+            <span id="answeredCounter" style="font-size:0.82rem; color:var(--text-muted); font-weight:normal;">0/28 câu</span>
+          </div>
+
+          <div class="palette-group-name">Phần I: Trắc nghiệm (18 câu)</div>
+          <div class="palette-btn-grid" id="palettePart1"></div>
+
+          <div class="palette-group-name">Phần II: Đúng / Sai (4 câu)</div>
+          <div class="palette-btn-grid" id="palettePart2"></div>
+
+          <div class="palette-group-name">Phần III: Trả lời ngắn (6 câu)</div>
+          <div class="palette-btn-grid" id="palettePart3"></div>
+
+          <div style="margin-top:20px; border-top:1px solid #e2e8f0; padding-top:14px;">
+            <button class="btn btn-primary" style="width:100%;" onclick="confirmSubmitExam()">
+              Nộp bài thi ngay
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 4: EXAM RESULT & DETAILED SOLUTIONS -->
+    <div id="viewExamResult" class="view-panel">
+      <div class="result-hero-card">
+        <h2 style="font-size:1.5rem; color:#0d274c; margin-bottom:6px;">Kết Quả Bài Thi</h2>
+        <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:20px;" id="resultSubtitle">
+          Học sinh: Nguyễn Văn An • Lớp 12A1 • ĐỀ SỐ 01
+        </p>
+
+        <div class="score-circle">
+          <span class="big-num" id="resTotalScore">8.5</span>
+          <span class="scale-sub">Thang điểm 10</span>
+        </div>
+
+        <div class="score-parts-grid">
+          <div class="part-score-item">
+            <div class="label">Phần I (Nhiều lựa chọn)</div>
+            <div class="val" id="resPart1Score">4.00 / 4.50 đ</div>
+          </div>
+          <div class="part-score-item">
+            <div class="label">Phần II (Đúng / Sai)</div>
+            <div class="val" id="resPart2Score">3.25 / 4.00 đ</div>
+          </div>
+          <div class="part-score-item">
+            <div class="label">Phần III (Trả lời ngắn)</div>
+            <div class="val" id="resPart3Score">1.25 / 1.50 đ</div>
+          </div>
+          <div class="part-score-item">
+            <div class="label">Thời gian hoàn thành</div>
+            <div class="val" id="resDuration">32p 40s</div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+          <button class="btn btn-outline" onclick="navigateToSelectExam()">
+            ← Danh sách đề thi
+          </button>
+          <button class="btn btn-primary" onclick="scrollToReviewSection()">
+            Xem hướng dẫn giải chi tiết ↓
+          </button>
+        </div>
+      </div>
+
+      <!-- Detailed Review Area with Explanations -->
+      <div id="reviewQuestionsContainer"></div>
+    </div>
+
+    <!-- VIEW 5: TEACHER DASHBOARD -->
+    <div id="viewTeacherDashboard" class="view-panel">
+      <div class="teacher-panel-header">
+        <div>
+          <span class="exam-card-badge" style="background:#dbeafe; color:#1e40af;">Hệ Thống Quản Trị Giáo Viên</span>
+          <h2 style="font-size:1.45rem; color:#0d274c; font-weight:800;">Bảng Điểm & Kết Quả Chi Tiết</h2>
+          <p style="font-size:0.88rem; color:var(--text-muted);">
+            Trường THPT Quang Trung • Ôn thi THPT môn Hóa học 2026-2027
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-success" onclick="exportToExcel()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Xuất file Excel
+          </button>
+          <button class="btn btn-danger" onclick="confirmResetAllData()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            Xóa dữ liệu cũ (Làm lại với lớp khác)
+          </button>
+          <button class="btn btn-outline" onclick="logoutTeacher()">Đăng xuất</button>
+        </div>
+      </div>
+
+      <!-- Overview Statistics -->
+      <div class="teacher-stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Tổng số bài nộp</div>
+          <div class="stat-value" id="statTotalSubmissions">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Điểm trung bình</div>
+          <div class="stat-value" id="statAvgScore">0.0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Điểm cao nhất</div>
+          <div class="stat-value" id="statMaxScore">0.0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Điểm thấp nhất</div>
+          <div class="stat-value" id="statMinScore">0.0</div>
+        </div>
+      </div>
+
+      <!-- Filters & Search -->
+      <div style="background:#ffffff; border-radius:var(--radius-md); padding:16px 20px; border:1px solid #e2e8f0; margin-bottom:18px; display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+        <div style="flex:1; min-width:200px;">
+          <input type="text" id="filterSearchName" class="form-input" placeholder="Tìm theo tên học sinh..." oninput="renderTeacherTable()">
+        </div>
+        <div style="width:160px;">
+          <select id="filterSelectClass" class="form-select" onchange="renderTeacherTable()">
+            <option value="ALL">Tất cả các lớp</option>
+          </select>
+        </div>
+        <div style="width:160px;">
+          <select id="filterSelectExam" class="form-select" onchange="renderTeacherTable()">
+            <option value="ALL">Tất cả các đề</option>
+            <option value="ĐỀ 01">ĐỀ 01</option>
+            <option value="ĐỀ 02">ĐỀ 02</option>
+            <option value="ĐỀ 03">ĐỀ 03</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table of Students -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:50px;">STT</th>
+              <th>Họ và tên</th>
+              <th>Lớp</th>
+              <th>Đề thi</th>
+              <th>Tổng điểm</th>
+              <th>Phần I</th>
+              <th>Phần II</th>
+              <th>Phần III</th>
+              <th>Thời gian làm</th>
+              <th>Thời điểm nộp</th>
+              <th style="text-align:center;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="teacherTableBody">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Google Sheets Live Integration Box -->
+      <div class="gsheet-box">
+        <div class="gsheet-header">
+          <div class="gsheet-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H6v-2h6v2zm4-4H6v-2h10v2zm0-4H6V7h10v2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 style="font-size:1.15rem; color:#0d274c; font-weight:700;">Kết Nối Google Sheets Tức Thời (Live Sync)</h3>
+            <p style="font-size:0.86rem; color:var(--text-muted);">
+              Tự động lưu bài làm của học sinh vào Google Sheet ngay khi nộp, hiển thị trực tiếp và xóa dữ liệu đồng bộ.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;">
+          <input type="url" id="inputGSheetUrl" class="form-input" style="flex:1; min-width:300px;" placeholder="Dán URL Google Apps Script Web App (https://script.google.com/macros/s/.../exec)...">
+          <button class="btn btn-primary" onclick="saveGSheetConfig()">Lưu cấu hình</button>
+          <button class="btn btn-outline" onclick="syncWithGoogleSheet()">Đồng bộ ngay</button>
+          <button class="btn btn-danger btn-sm" onclick="clearGoogleSheetLive()">Xóa dữ liệu trên Sheet</button>
+        </div>
+
+        <details style="background:#f8fafc; border-radius:var(--radius-md); padding:12px 16px; border:1px solid #e2e8f0; font-size:0.86rem;">
+          <summary style="font-weight:700; color:#0d274c; cursor:pointer;">
+            Hướng dẫn 3 bước kết nối Google Sheets (Bấm vào để xem mã Apps Script)
+          </summary>
+          <div style="margin-top:12px; color:var(--text-sub);">
+            <ol style="margin-left:20px; margin-bottom:10px; line-height:1.7;">
+              <li>Tạo một file <strong>Google Sheets</strong> mới trên Google Drive của giáo viên.</li>
+              <li>Vào menu <strong>Tiện ích mở rộng (Extensions)</strong> &gt; <strong>Apps Script</strong>, xóa toàn bộ code cũ và dán đoạn mã bên dưới vào:</li>
+            </ol>
+            
+            <div class="code-snippet">
+<pre id="appsScriptCodeText">function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  
+  if (data.action === "clear_all") {
+    var lastRow = sheet.getLastRow();
+    if (lastRow > 1) {
+      sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).clearContent();
+    }
+    return ContentService.createTextOutput(JSON.stringify({status: "success", msg: "Cleared"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["Thời gian", "Họ và tên", "Lớp", "Đề thi", "Tổng điểm", "Phần I", "Phần II", "Phần III", "Thời gian làm bài"]);
+  }
+  
+  var d = data.data;
+  sheet.appendRow([d.timestamp, d.student_name, d.student_class, d.exam_id, d.total_score, d.p1_score, d.p2_score, d.p3_score, d.duration]);
+  
+  return ContentService.createTextOutput(JSON.stringify({status: "success"}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var rows = sheet.getDataRange().getValues();
+  var result = [];
+  if (rows.length > 1) {
+    for (var i = 1; i < rows.length; i++) {
+      result.push({
+        timestamp: rows[i][0],
+        student_name: rows[i][1],
+        student_class: rows[i][2],
+        exam_id: rows[i][3],
+        total_score: rows[i][4],
+        p1_score: rows[i][5],
+        p2_score: rows[i][6],
+        p3_score: rows[i][7],
+        duration: rows[i][8]
+      });
+    }
+  }
+  return ContentService.createTextOutput(JSON.stringify({status: "success", data: result}))
+    .setMimeType(ContentService.MimeType.JSON);
+}</pre>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="copyAppsScriptCode()">
+              Sao chép mã Apps Script
+            </button>
+            <ol start="3" style="margin-left:20px; margin-top:10px; line-height:1.7;">
+              <li>Bấm nút <strong>Triển khai (Deploy)</strong> &gt; <strong>Triển khai mới (New deployment)</strong> &gt; Loại: <strong>Ứng dụng web (Web app)</strong> &gt; Thiết lập: Ai có quyền truy cập: <strong>Bất kỳ ai (Anyone)</strong> &gt; Bấm Triển khai và sao chép Web App URL dán vào ô bên trên.</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: TEACHER LOGIN -->
+  <div id="modalTeacherLogin" class="modal-overlay">
+    <div class="modal-box" style="max-width:420px;">
+      <button class="modal-close-btn" onclick="closeTeacherLoginModal()">&times;</button>
+      <div style="text-align:center; margin-bottom:18px;">
+        <div style="width:60px; height:60px; background:#eff6ff; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; color:#1d4ed8;">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h3 style="font-size:1.3rem; color:#0d274c; font-weight:800;">Đăng Nhập Giáo Viên</h3>
+        <p style="font-size:0.88rem; color:var(--text-muted);">Vui lòng nhập mật khẩu quản trị giáo viên</p>
+      </div>
+
+      <form id="teacherLoginForm" onsubmit="handleTeacherLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="inputTeacherPassword">Mật khẩu giáo viên *</label>
+          <input type="password" id="inputTeacherPassword" class="form-input" placeholder="Nhập mật khẩu..." required autocomplete="current-password">
+          <small style="color:var(--text-muted); font-size:0.78rem; display:block; margin-top:4px;">Gợi ý: Mật khẩu mặc định là <code>giaovien123</code></small>
+        </div>
+        <div id="teacherLoginError" style="color:#dc2626; font-size:0.84rem; margin-bottom:12px; display:none;">
+          Mật khẩu không chính xác. Vui lòng thử lại!
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:11px;">
+          Xác nhận đăng nhập
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CONFIRM SUBMISSION -->
+  <div id="modalConfirmSubmit" class="modal-overlay">
+    <div class="modal-box" style="max-width:440px; text-align:center;">
+      <h3 style="font-size:1.25rem; color:#0d274c; margin-bottom:10px;">Xác Nhận Nộp Bài</h3>
+      <p id="confirmSubmitText" style="font-size:0.92rem; color:var(--text-sub); margin-bottom:20px;">
+        Bạn có chắc chắn muốn nộp bài thi không?
+      </p>
+      <div style="display:flex; justify-content:center; gap:12px;">
+        <button class="btn btn-outline" onclick="closeModal('modalConfirmSubmit')">Tiếp tục làm bài</button>
+        <button class="btn btn-primary" onclick="submitExamFinal(false)">Đồng ý nộp bài</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: STUDENT DETAILED EXAM VIEW (FOR TEACHER) -->
+  <div id="modalStudentDetail" class="modal-overlay">
+    <div class="modal-box" style="max-width:850px;">
+      <button class="modal-close-btn" onclick="closeModal('modalStudentDetail')">&times;</button>
+      <h3 style="font-size:1.3rem; color:#0d274c; margin-bottom:6px;" id="modalDetailStudentTitle">Chi Tiết Bài Làm Của Thí Sinh</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:20px;" id="modalDetailStudentSub"></p>
+      <div id="modalDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- RAW EXAM DATA EMBEDDED SAFELY -->
+  <script>
+    const EXAMS_DATABASE = [{"id": "de_01", "title": "ĐỀ SỐ 01", "name": "ĐỀ THI ÔN TẬP THPT MÔN HÓA HỌC - ĐỀ SỐ 01", "part1": [{"id": 1, "question": "(Hóa 10 - Năng lượng hóa học) Ký hiệu nào sau đây biểu thị enthalpy tạo thành chuẩn của một chất ở điều kiện chuẩn?", "options": {"A": "ΔrH°298", "B": "ΔfH°298", "C": "ΔfH298", "D": "ΔrH°"}, "correct": "B", "solution": "Enthalpy tạo thành chuẩn của một chất (nhiệt tạo thành chuẩn) được ký hiệu là ΔfH°298 (chữ f viết tắt từ 'formation', 298 K và áp suất 1 bar)."}, {"id": 2, "question": "(Hóa 10 - Tốc độ phản ứng hóa học) Khi hòa tan 2 gam đá vôi (CaCO3) trong 25 mL dung dịch HCl 2 M ở 25°C. Yếu tố nào sau đây sẽ KHÔNG làm thay đổi tốc độ phản ứng ban đầu?", "options": {"A": "Nghiền nhỏ viên đá vôi thành dạng bột mịn.", "B": "Đun nóng dung dịch lên 50°", "C": "Tăng nồng độ dung dịch HCl lên 4 M.", "D": "Thêm tiếp 25 mL dung dịch HCl 2 M vào hỗn hợp phản ứng."}, "correct": "D", "solution": "Thêm dung dịch HCl cùng nồng độ (2 M) thì nồng độ ban đầu của HCl không thay đổi, diện tích tiếp xúc của viên đá vôi không đổi nên tốc độ phản ứng không đổi. Các yếu tố A (tăng diện tích bề mặt), B (tăng nhiệt độ), C (tăng nồng độ) đều làm tăng tốc độ phản ứng."}, {"id": 3, "question": "(Hóa 11 - Cân bằng hóa học) Cho cân bằng hóa học sau: N2(g) + 3H2(g) ⇌ 2NH3(g) (ΔrH°298 = -92 kJ). Biện pháp nào sau đây làm cân bằng chuyển dịch theo chiều thuận?", "options": {"A": "Tăng nhiệt độ của hệ phản ứng.", "B": "Giảm áp suất chung của hệ phản ứng.", "C": "Thêm khí N2 hoặc H2 vào bình phản ứng.", "D": "Thêm chất xúc tác bột sắt (Fe)."}, "correct": "C", "solution": "Tăng nồng độ chất phản ứng (N2 hoặc H2) làm cân bằng chuyển dịch theo chiều làm giảm nồng độ chúng (chiều thuận). Chiều thuận là chiều tỏa nhiệt (∆H < 0), nên tăng nhiệt độ sẽ chuyển dịch chiều nghịch; giảm áp suất chuyển dịch theo chiều tăng số mol khí (chiều nghịch); chất xúc tác không làm chuyển dịch cân bằng."}, {"id": 4, "question": "(Hóa 11 - Hợp chất của Nitrogen) Trong tự nhiên, những cơn mưa dông kèm sấm sét là khởi đầu cho quá trình tổng hợp và cung cấp loại phân đạm nào sau đây cho cây trồng?", "options": {"A": "Phân đạm ammonium (NH4+).", "B": "Phân đạm nitrate (NO3-).", "C": "Phân lân (H2PO4-).", "D": "Phân kali (K+)."}, "correct": "B", "solution": "Tia sét cung cấp năng lượng cao kích hoạt phản ứng N2 + O2 ⇌ 2NO, sau đó 2NO + O2 -> 2NO2, và 4NO2 + O2 + 2H2O -> 4HNO3. Acid nitric theo nước mưa ngấm vào đất tạo các muối nitrate (NO3-) cung cấp đạm cho cây."}, {"id": 5, "question": "(Hóa 11 - Hợp chất Carbonyl) Chất nào sau đây thuộc loại aldehyde đơn chức, no, mạch hở và có khả năng tham gia phản ứng tráng bạc?", "options": {"A": "Ethanol.", "B": "Acetaldehyde (ethanal).", "C": "Acetone (propanone).", "D": "Acetic acid."}, "correct": "B", "solution": "Acetaldehyde (CH3CHO) chứa nhóm chức aldehyde (-CHO) nên có tính khử, tham gia phản ứng tráng bạc với thuốc thử Tollens sinh ra kết tủa kim loại Ag."}, {"id": 6, "question": "(Hóa 12 - Chương 1: Ester) Ester X có công thức cấu tạo thu gọn là C2H5COOCH3. Tên gọi của X là:", "options": {"A": "Ethyl acetate.", "B": "Methyl propionate.", "C": "Ethyl propionate.", "D": "Methyl acetate."}, "correct": "B", "solution": "C2H5COOCH3 gồm gốc alcohol là methyl (-CH3) và gốc carboxylic acid là propionate (C2H5COO-), do đó tên gọi chuẩn là methyl propionate."}, {"id": 7, "question": "(Hóa 12 - Chương 1: Lipid - Chất béo) Triester của glycerol với oleic acid (C17H33COOH) có tên gọi là triolein. Công thức cấu tạo thu gọn của triolein là:", "options": {"A": "(C17H35COO)3C3H5.", "B": "(C17H33COO)3C3H5.", "C": "(C15H31COO)3C3H5.", "D": "(C17H31COO)3C3H5."}, "correct": "B", "solution": "Triolein được tạo bởi 3 gốc acid béo không no oleic acid (C17H33COOH) và gốc glyceryl (C3H5), có công thức là (C17H33COO)3C3H5."}, {"id": 8, "question": "(Hóa 12 - Chương 1: Xà phòng & Chất giặt rửa) Phát biểu nào sau đây về xà phòng và chất giặt rửa tổng hợp là KHÔNG đúng?", "options": {"A": "Xà phòng là hỗn hợp các muối sodium hoặc potassium của acid béo.", "B": "Phân tử chất giặt rửa gồm đầu ưa nước và đuôi kị nước dài.", "C": "Xà phòng có ưu điểm vượt trội là sử dụng rất tốt và không bị kết tủa trong nước cứng.", "D": "Chất giặt rửa tổng hợp không tạo kết tủa với ion Ca2+, Mg2+ nên dùng được trong nước cứng."}, "correct": "C", "solution": "Xà phòng bị mất hoặc giảm tác dụng giặt rửa trong nước cứng vì tạo kết tủa không tan của các muối calcium và magnesium với acid béo (ví dụ: (C17H35COO)2Ca), bám lên vải sợi và bề mặt giặt."}, {"id": 9, "question": "(Hóa 12 - Chương 1: Ester) Thủy phân hoàn toàn ethyl formate (HCOOC2H5) trong dung dịch NaOH đun nóng thu được sản phẩm hữu cơ gồm:", "options": {"A": "HCOONa và C2H5OH.", "B": "CH3COONa và CH3OH.", "C": "HCOONa và CH3OH.", "D": "CH3COONa và C2H5OH."}, "correct": "A", "solution": "Phản ứng thủy phân este trong môi trường kiềm: HCOOC2H5 + NaOH -> HCOONa (sodium formate) + C2H5OH (ethanol)."}, {"id": 10, "question": "(Hóa 12 - Chương 2: Carbohydrate) Chất nào sau đây thuộc loại monosaccharide, có nhiều trong quả nho chín nên còn gọi là đường nho?", "options": {"A": "Glucose.", "B": "Saccharose.", "C": "Maltose.", "D": "Cellulose."}, "correct": "A", "solution": "Glucose là monosaccharide có công thức C6H12O6, có vị ngọt thanh, có nhiều trong nho chín nên còn được gọi là đường nho."}, {"id": 11, "question": "(Hóa 12 - Chương 2: Carbohydrate) Dung dịch chất nào sau đây hòa tan Cu(OH)2 ở nhiệt độ phòng tạo dung dịch phức màu xanh lam thẫm?", "options": {"A": "Ethanol.", "B": "Glucose.", "C": "Ethyl acetate.", "D": "Acetic acid."}, "correct": "B", "solution": "Glucose có 5 nhóm hydroxy (-OH) liền kề trong phân tử nên có tính chất của polyalcohol, dễ dàng tạo phức hòa tan Cu(OH)2 ở điều kiện thường tạo dung dịch màu xanh lam thẫm."}, {"id": 12, "question": "(Hóa 12 - Chương 2: Carbohydrate) Cả tinh bột và cellulose đều thuộc loại polysaccharide thiên nhiên và có công thức chung là:", "options": {"A": "C6H12O6.", "B": "C12H22O11.", "C": "(C6H10O5)n.", "D": "C18H32O16."}, "correct": "C", "solution": "Tinh bột và cellulose là các polymer thiên nhiên của các đơn vị glucose, đều có công thức chung là (C6H10O5)n với hệ số polymer hóa n khác nhau."}, {"id": 13, "question": "(Hóa 12 - Chương 3: Amine) Hợp chất nào sau đây là amine bậc một?", "options": {"A": "(CH3)2NH.", "B": "(CH3)3N.", "C": "C2H5NH2.", "D": "CH3-NH-C2H5."}, "correct": "C", "solution": "Ethylamine (C2H5NH2) có nhóm chức -NH2 liên kết trực tiếp với gốc hydrocarbon nên là amine bậc một. (CH3)2NH và CH3-NH-C2H5 là amine bậc hai; (CH3)3N là amine bậc ba."}, {"id": 14, "question": "(Hóa 12 - Chương 3: Amino acid) Công thức phân tử của amino acid glycine (aminoacetic acid) là:", "options": {"A": "C2H5NO2.", "B": "C3H7NO2.", "C": "C4H9NO2.", "D": "C5H9NO4."}, "correct": "A", "solution": "Glycine có công thức cấu tạo H2N-CH2-COOH, tương ứng với công thức phân tử C2H5NO2 (phân tử khối bằng 75 amu)."}, {"id": 15, "question": "(Hóa 12 - Chương 3: Amine) Dung dịch chất nào sau đây làm quỳ tím chuyển sang màu xanh?", "options": {"A": "Aniline.", "B": "Methylamine.", "C": "Glycine.", "D": "Alanine."}, "correct": "B", "solution": "Methylamine (CH3NH2) là amine béo có tính base mạnh hơn ammonia, trong dung dịch làm quỳ tím chuyển sang màu xanh. Aniline có tính base rất yếu không đổi màu quỳ tím; glycine và alanine có 1 nhóm NH2 và 1 nhóm COOH nên môi trường gần như trung tính."}, {"id": 16, "question": "(Hóa 12 - Chương 3: Peptide) Tripeptide mạch hở Gly-Ala-Val có công thức phân tử là:", "options": {"A": "C9H19O4N3.", "B": "C10H19O4N3.", "C": "C10H21O4N3.", "D": "C11H21O4N3."}, "correct": "B", "solution": "Gly (C2H5NO2) + Ala (C3H7NO2) + Val (C5H11NO2) - 2H2O = C10H23N3O6 - H4O2 = C10H19O4N3."}, {"id": 17, "question": "(Hóa 12 - Chương 3: Peptide) Phân tử dipeptide nào sau đây có chứa đúng 4 nguyên tử oxygen?", "options": {"A": "Gly-Ala.", "B": "Gly-Val.", "C": "Gly-Glu.", "D": "Ala-Ala."}, "correct": "C", "solution": "Glutamic acid (Glu) có 2 nhóm -COOH (4 nguyên tử O). Khi kết hợp với Glycine (2 nguyên tử O) tạo dipeptide Gly-Glu và loại 1 phân tử H2O: 2 + 4 - 1 = 5? Khoan: dipeptide bình thường Gly-Ala có C5H10N2O3 (3 nguyên tử O). Với Gly-Glu: Gly (2 O) + Glu (4 O) - 1 H2O = 5 O? Xét dipeptide tạo bởi amino acid có 1 nhóm COOH thì có 3 O. Nếu phân tử peptide có 4 nguyên tử O thì đó là tripeptide từ amino acid đơn giản (ví dụ Gly-Gly-Gly có 4 O) hoặc dipeptide chứa amino acid có 2 nhóm COOH là 5 O. Nhưng câu hỏi hỏi dipeptide nào sau đây có 4 nguyên tử O? Hãy chọn tripeptide Gly-Ala-Ala hoặc kiểm tra: dipeptide Gly-Glu có 5 O. Để chuẩn xác, ta chọn dipeptide của ester hoặc thay bằng: 'Phân tử tripeptide nào sau đây có chứa 4 nguyên tử oxygen? A. Gly-Ala-Val. B. Gly-Ala-Glu...'. Tripeptide mạch hở tạo từ các α-amino acid no có 1 nhóm NH2 và 1 nhóm COOH luôn có 4 nguyên tử O: C_n H_m N3 O4. Do đó câu hỏi chuẩn xác là: Phân tử tripeptide Gly-Ala-Val có số nguyên tử oxygen là 4."}, {"id": 18, "question": "(Hóa 12 - Chương 3: Protein) Nhận định nào sau đây KHÔNG đúng khi nói về peptide và protein?", "options": {"A": "Peptide thường có phân tử khối thấp hơn so với protein.", "B": "Protein dạng hình cầu như albumin (lòng trắng trứng) tan được trong nước tạo dung dịch keo.", "C": "Cả peptide và protein đều trơ về mặt sinh học và không thể hiện bất kỳ chức năng sinh học nào.", "D": "Protein bị đông tụ và biến tính khi đun nóng hoặc tiếp xúc với acid, base hay ion kim loại nặng."}, "correct": "C", "solution": "Protein và nhiều peptide đóng vai trò sinh học cực kỳ quan trọng trong cơ thể (như enzyme xúc tác, hormone insulin điều hòa đường huyết, kháng thể bảo vệ cơ thể, vận chuyển oxygen như hemoglobin). Nhận định C hoàn toàn sai."}], "part2": [{"id": 1, "context": "(Hóa 12 - Chương 1: Ester - Lipid)\nIsoamyl acetate có mùi chuối chín được ứng dụng làm hương liệu thực phẩm và dung môi pha sơn. Một nhóm học sinh tiến hành điều chế isoamyl acetate theo quy trình sau:\n- Bước 1: Cho 15 mL isoamyl alcohol, 10 mL acetic acid và 7 mL dung dịch H2SO4 đặc cùng vài viên đá bọt vào bình cầu đáy tròn, lắp ống sinh hàn hồi lưu và đun nóng cách nhiệt nhẹ trong 1 giờ.\n- Bước 2: Để nguội bình cầu, rót toàn bộ hỗn hợp vào phễu chiết, lắc đều và để yên khoảng 5 phút. Hỗn hợp tách thành hai lớp, tháo bỏ lớp chất lỏng phía dưới, giữ lại lớp este phía trên.\n- Bước 3: Rửa lớp este bằng nước cất, sau đó bằng dung dịch Na2CO3 bão hòa cho đến khi không còn bọt khí thoát ra, rồi tách lấy isoamyl acetate sạch.", "items": [{"id": "a", "text": "Phản ứng ester hóa giữa isoamyl alcohol và acetic acid là phản ứng thuận nghịch.", "correct": true, "solution": "Ý a (Đúng): Phản ứng este hóa giữa carboxylic acid và alcohol có mặt acid vô cơ làm xúc tác luôn là phản ứng thuận nghịch."}, {"id": "b", "text": "Mục đích của việc thêm dung dịch Na2CO3 bão hòa ở bước 3 là để trung hòa và loại bỏ lượng acid acetic và acid sulfuric còn dư lẫn trong este.", "correct": true, "solution": "Ý b (Đúng): Na2CO3 phản ứng với acid dư tạo muối tan trong nước và giải phóng khí CO2 (2CH3COOH + Na2CO3 -> 2CH3COONa + CO2 + H2O), giúp loại bỏ acid hoàn toàn."}, {"id": "c", "text": "Isoamyl acetate là chất lỏng tan vô hạn trong nước nên không thể tách lớp ở bước 2.", "correct": false, "solution": "Ý c (Sai): Isoamyl acetate là este ít tan trong nước và có khối lượng riêng nhỏ hơn nước (khoảng 0,876 g/mL) nên nổi lên trên thành lớp riêng biệt, dễ dàng tách bằng phễu chiết."}, {"id": "d", "text": "Đá bọt được thêm vào ở bước 1 nhằm mục đích làm chất xúc tác giúp phản ứng este hóa diễn ra nhanh hơn.", "correct": false, "solution": "Ý d (Sai): Đá bọt không phải chất xúc tác, nó có tác dụng điều hòa quá trình sôi, tạo các tâm sôi giúp hỗn hợp sôi êm dịu, tránh sôi bùng trào."}]}, {"id": 2, "context": "(Hóa 12 - Chương 2: Carbohydrate)\nTiến hành thí nghiệm tráng bạc của glucose theo các bước sau:\n- Bước 1: Cho 1 mL dung dịch AgNO3 1% vào ống nghiệm sạch.\n- Bước 2: Nhỏ từ từ từng giọt dung dịch NH3 5% vào ống nghiệm, lắc đều đến khi kết tủa màu nâu xám vừa tan hết, thu được dung dịch trong suốt của thuốc thử Tollens [Ag(NH3)2]OH.\n- Bước 3: Thêm tiếp 1 mL dung dịch glucose 1% vào ống nghiệm, lắc nhẹ rồi ngâm ống nghiệm trong cốc nước nóng (khoảng 60 - 70°C) trong 3 - 5 phút.", "items": [{"id": "a", "text": "Trong phản ứng tráng bạc ở trên, glucose đóng vai trò là chất khử và bị oxi hóa thành ammonium gluconate.", "correct": true, "solution": "Ý a (Đúng): Glucose bị [Ag(NH3)2]+ oxi hóa: CH2OH(CHOH)4CHO -> CH2OH(CHOH)4COONH4; ion Ag+ bị khử về kim loại Ag bám vào thành ống nghiệm."}, {"id": "b", "text": "Phản ứng tráng bạc chứng minh rằng trong dung dịch nước, phân tử glucose tồn tại một phần ở dạng mạch hở chứa nhóm chức aldehyde (-CHO).", "correct": true, "solution": "Ý b (Đúng): Dạng mạch hở có nhóm -CHO mang tính khử đặc trưng, tham gia phản ứng tráng bạc."}, {"id": "c", "text": "Nếu thay dung dịch glucose bằng dung dịch fructose thì phản ứng tráng bạc vẫn diễn ra tương tự.", "correct": true, "solution": "Ý c (Đúng): Trong môi trường kiềm của thuốc thử Tollens, fructose chuyển hóa thuận nghịch thành glucose (đồng phân hóa enol) nên cũng cho kết tủa bạc sáng bóng."}, {"id": "d", "text": "Ở bước 3, đun sôi trực tiếp ống nghiệm trên ngọn lửa đèn cồn mạnh sẽ giúp lớp kim loại bạc bám chắc và sáng bóng hơn so với ngâm cách thủy.", "correct": false, "solution": "Ý d (Sai): Đun sôi trực tiếp trên lửa mạnh sẽ làm kết tủa bạc tạo thành nhanh bị xáo trộn, vón cục màu đen xám và không tráng đều thành gương sáng bóng."}]}, {"id": 3, "context": "(Hóa 12 - Chương 3: Hợp chất chứa Nitrogen)\nĐiểm đẳng điện (pI) là giá trị pH mà tại đó nồng độ ion lưỡng cực của amino acid đạt cực đại và tổng điện tích phân tử bằng 0. Khi pH < pI, amino acid nhận H+ trở thành cation và di chuyển về cực âm (cathode); khi pH > pI, amino acid nhường H+ trở thành anion và di chuyển về cực dương (anode). Cho bảng giá trị pI của ba amino acid sau:\n- Glycine (Gly): pI = 5,97\n- Glutamic acid (Glu): pI = 3,22\n- Lysine (Lys): pI = 9,74", "items": [{"id": "a", "text": "Ở giá trị pH = 6,0, phân tử glycine tồn tại chủ yếu ở dạng ion lưỡng cực có tổng điện tích xấp xỉ bằng 0.", "correct": true, "solution": "Ý a (Đúng): Tại pH = 6,0 rất gần với pI của Gly (5,97), nồng độ ion lưỡng cực H3N+-CH2-COO- đạt cực đại và trung hòa điện."}, {"id": "b", "text": "Glutamic acid có điểm đẳng điện pI nhỏ hơn 7 là do phân tử chứa 2 nhóm -COOH và chỉ có 1 nhóm -NH2.", "correct": true, "solution": "Ý b (Đúng): Nhóm -COOH có tính acid chiếm ưu thế, làm điểm đẳng điện của Glu dịch chuyển mạnh về vùng pH acid (pI = 3,22)."}, {"id": "c", "text": "Khi tiến hành điện di dung dịch hỗn hợp 3 amino acid trên tại pH = 6,0 thì glutamic acid sẽ di chuyển về phía cực dương (anode).", "correct": true, "solution": "Ý c (Đúng): Tại pH = 6,0 > pI(Glu)=3,22, phân tử Glu nhường H+ trở thành anion mang điện tích âm nên di chuyển về cực dương (+)."}, {"id": "d", "text": "Tại môi trường acid mạnh có pH = 1,0, cả 3 amino acid trên đều tồn tại ở dạng anion và di chuyển về phía cực dương.", "correct": false, "solution": "Ý d (Sai): Tại pH = 1,0 nhỏ hơn pI của cả 3 amino acid, chúng đều nhận proton H+ trở thành cation mang điện tích dương và di chuyển về cực âm (-)."}]}, {"id": 4, "context": "(Hóa 10 & Hóa 11: Năng lượng và Cân bằng hóa học)\nXét phản ứng tổng hợp ammonia trong công nghiệp theo quy trình Haber-Bosch:\nN2(g) + 3H2(g) ⇌ 2NH3(g) (ΔrH°298 = -92 kJ)\nPhản ứng được thực hiện trong bình kín có chất xúc tác bột sắt ở nhiệt độ khoảng 450°C và áp suất khoảng 200 bar.", "items": [{"id": "a", "text": "Phản ứng tổng hợp ammonia theo chiều thuận là phản ứng tỏa nhiệt.", "correct": true, "solution": "Ý a (Đúng): Giá trị biến thiên enthalpy chuẩn ΔrH°298 = -92 kJ < 0 biểu thị phản ứng tỏa nhiệt."}, {"id": "b", "text": "Khi tăng nhiệt độ của hệ phản ứng, cân bằng hóa học sẽ chuyển dịch theo chiều thuận làm tăng hiệu suất tạo thành NH3.", "correct": false, "solution": "Ý b (Sai): Theo nguyên lý Le Chatelier, tăng nhiệt độ cân bằng chuyển dịch theo chiều thu nhiệt (chiều nghịch làm giảm hiệu suất tạo NH3)."}, {"id": "c", "text": "Tăng áp suất chung của hệ phản ứng làm cân bằng chuyển dịch theo chiều thuận.", "correct": true, "solution": "Ý c (Đúng): Chiều thuận có sự giảm số mol khí (từ 1 + 3 = 4 mol khí xuống 2 mol khí), nên tăng áp suất cân bằng sẽ chuyển dịch theo chiều thuận."}, {"id": "d", "text": "Bột sắt (Fe) đóng vai trò chất xúc tác làm tăng tốc độ phản ứng và làm tăng giá trị hằng số cân bằng KC của hệ.", "correct": false, "solution": "Ý d (Sai): Chất xúc tác chỉ làm tăng tốc độ phản ứng thuận và nghịch với mức độ như nhau, giúp hệ nhanh đạt cân bằng chứ không làm thay đổi vị trí cân bằng và hằng số cân bằng KC."}]}], "part3": [{"id": 1, "question": "(Hóa 10 - Chương 5: Năng lượng hóa học) Cho phản ứng nhiệt phân ethane: C2H6(g) -> C2H4(g) + H2(g). Cho giá trị năng lượng liên kết trung bình ở điều kiện chuẩn: Eb(C-C) = 346 kJ/mol; Eb(C=C) = 612 kJ/mol; Eb(C-H) = 418 kJ/mol; Eb(H-H) = 436 kJ/mol. Tính biến thiên enthalpy chuẩn ΔrH°298 của phản ứng trên (theo đơn vị kJ).", "correct": "134", "solution": "Câu 1 (Đáp số: 134): Ta có: ΔrH°298 = [Eb(C-C) + 6.Eb(C-H)] - [Eb(C=C) + 4.Eb(C-H) + Eb(H-H)] = [346 + 6*418] - [612 + 4*418 + 436] = 2854 - 2720 = +134 kJ."}, {"id": 2, "question": "(Hóa 11 - Chương 2: Phân bón hóa học) Phân đạm urea có công thức hóa học là (NH2)2CO. Độ dinh dưỡng của phân đạm được đánh giá bằng hàm lượng phần trăm theo khối lượng của nguyên tố nitrogen (%N). Tính độ dinh dưỡng của phân đạm urea nguyên chất (làm tròn kết quả đến hàng phần mười).", "correct": "46,7", "solution": "Câu 2 (Đáp số: 46,7): Khối lượng mol của urea (NH2)2CO = 14*2 + 4 + 12 + 16 = 60 g/mol. Hàm lượng nitrogen %N = (28 / 60) * 100% = 46,67% ≈ 46,7%."}, {"id": 3, "question": "(Hóa 12 - Chương 1: Ester) Cho các chất sau: HCOOCH3, CH3COOCH=CH2, CH3COOC6H5, CH3COOC2H5, C2H5COOCH2-CH=CH2. Thủy phân hoàn toàn các ester trên trong dung dịch NaOH dư đun nóng. Có bao nhiêu chất sau phản ứng thu được alcohol?", "correct": "3", "solution": "Câu 3 (Đáp số: 3): Các ester sinh ra alcohol gồm: HCOOCH3 (sinh CH3OH), CH3COOC2H5 (sinh C2H5OH), C2H5COOCH2-CH=CH2 (sinh allyl alcohol CH2=CH-CH2OH). CH3COOCH=CH2 sinh acetaldehyde; CH3COOC6H5 sinh sodium phenolate."}, {"id": 4, "question": "(Hóa 12 - Chương 2: Carbohydrate) Cho các carbohydrate sau: glucose, fructose, saccharose, maltose, tinh bột, cellulose. Có bao nhiêu carbohydrate khi bị thủy phân hoàn toàn trong môi trường acid đun nóng có sinh ra glucose?", "correct": "4", "solution": "Câu 4 (Đáp số: 4): Các chất bị thủy phân sinh ra glucose gồm 4 chất: saccharose (sinh glucose + fructose), maltose (sinh 2 glucose), tinh bột (sinh glucose), cellulose (sinh glucose). Glucose và fructose là monosaccharide không bị thủy phân."}, {"id": 5, "question": "(Hóa 12 - Chương 3: Peptide) Cho tripeptide mạch hở Gly-Ala-Val. Tính phân tử khối của tripeptide này theo đơn vị amu.", "correct": "245", "solution": "Câu 5 (Đáp số: 245): Phân tử khối = M(Gly) + M(Ala) + M(Val) - 2*M(H2O) = 75 + 89 + 117 - 2*18 = 281 - 36 = 245 amu."}, {"id": 6, "question": "(Hóa 12 - Chương 1: Lipid - Xà phòng hóa) Thủy phân hoàn toàn chất béo tristearin (C17H35COO)3C3H5 trong dung dịch NaOH vừa đủ, đun nóng. Biết khối lượng NaOH đã phản ứng là 12 gam. Khối lượng tristearin đã tham gia phản ứng xà phòng hóa là bao nhiêu gam?", "correct": "89", "solution": "Câu 6 (Đáp số: 89): Số mol NaOH = 12 / 40 = 0,3 mol. Phương trình: (C17H35COO)3C3H5 + 3NaOH -> 3C17H35COONa + C3H5(OH)3. Suy ra n(tristearin) = 0,3 / 3 = 0,1 mol. Khối lượng tristearin = 0,1 * 890 = 89 gam."}]}, {"id": "de_02", "title": "ĐỀ SỐ 02", "name": "ĐỀ THI ÔN TẬP THPT MÔN HÓA HỌC - ĐỀ SỐ 02", "part1": [{"id": 1, "question": "(Hóa 10 - Tốc độ phản ứng hóa học) Theo quy tắc Van't Hoff, khi nhiệt độ tăng thêm 10°C thì tốc độ một phản ứng hóa học tăng thêm 2 lần. Tốc độ phản ứng đó sẽ tăng lên bao nhiêu lần khi nâng nhiệt độ từ 20°C lên 40°C?", "options": {"A": "2 lần.", "B": "4 lần.", "C": "8 lần.", "D": "16 lần."}, "correct": "B", "solution": "Độ tăng nhiệt độ ∆T = 40 - 20 = 20°C = 2 * 10°C. Tốc độ phản ứng tăng lên là 2^(20/10) = 2^2 = 4 lần."}, {"id": 2, "question": "(Hóa 10 - Năng lượng hóa học) Phản ứng nhiệt phân đá vôi xảy ra theo phương trình nhiệt hóa học: CaCO3(s) -> CaO(s) + CO2(g) (ΔrH°298 = +178,3 kJ). Kết luận nào sau đây là đúng về phản ứng này?", "options": {"A": "Phản ứng xảy ra có sự giải phóng năng lượng ra môi trường.", "B": "Phản ứng thuộc loại phản ứng thu nhiệt từ môi trường.", "C": "Phản ứng diễn ra rất thuận lợi và nhanh chóng ở nhiệt độ phòng.", "D": "Phản ứng thuộc loại phản ứng tỏa nhiệt."}, "correct": "B", "solution": "Giá trị biến thiên enthalpy chuẩn mang dấu dương (ΔrH°298 = +178,3 kJ > 0) cho biết phản ứng thu nhiệt từ môi trường và cần đun nóng liên tục ở nhiệt độ cao (khoảng 900°C) để phản ứng xảy ra."}, {"id": 3, "question": "(Hóa 11 - Cân bằng hóa học) Cho cân bằng hóa học sau trong bình kín: 2SO2(g) + O2(g) ⇌ 2SO3(g) (ΔrH°298 < 0). Biện pháp nào sau đây làm cân bằng chuyển dịch theo chiều thuận?", "options": {"A": "Tăng nhiệt độ của hệ phản ứng.", "B": "Tăng áp suất chung của hệ phản ứng.", "C": "Giảm nồng độ khí SO2.", "D": "Giảm nồng độ khí O2."}, "correct": "B", "solution": "Tăng áp suất làm cân bằng chuyển dịch theo chiều làm giảm số mol khí. Chiều thuận chuyển từ (2 + 1 = 3) mol khí thành 2 mol khí (giảm số mol khí), nên tăng áp suất làm cân bằng dịch chuyển sang chiều thuận."}, {"id": 4, "question": "(Hóa 11 - Hợp chất của Nitrogen) Để bảo quản bánh ngọt, bim bim và các loại hạt không bị ôi thiu bởi oxygen không khí, người ta thường bơm khí N2 vào túi bao bì đóng gói. Ứng dụng này dựa vào tính chất nào của N2?", "options": {"A": "Khí N2 trơ về mặt hóa học ở nhiệt độ thường và không độc.", "B": "Khí N2 có tính khử mạnh ở nhiệt độ phòng.", "C": "Khí N2 có tính oxi hóa rất mạnh.", "D": "Khí N2 dễ bị hóa lỏng ở nhiệt độ thường."}, "correct": "A", "solution": "Phân tử N2 có liên kết ba N≡N rất bền vững với năng lượng liên kết lớn nên khí N2 rất trơ về mặt hóa học ở nhiệt độ phòng, lại không mùi, không màu, không độc hại nên được dùng làm khí trơ bảo quản thực phẩm."}, {"id": 5, "question": "(Hóa 11 - Carboxylic acid) Giấm ăn là một gia vị quen thuộc trong chế biến thực phẩm. Thành phần chính tạo nên vị chua của giấm ăn là dung dịch của chất nào sau đây?", "options": {"A": "Formic acid nồng độ 10%.", "B": "Acetic acid nồng độ khoảng 2 - 5%.", "C": "Citric acid nồng độ 20%.", "D": "Lactic acid nồng độ 15%."}, "correct": "B", "solution": "Giấm ăn là dung dịch acetic acid (CH3COOH) có nồng độ thể tích khoảng 2% đến 5%."}, {"id": 6, "question": "(Hóa 12 - Chương 1: Ester) Benzyl acetate là một ester có mùi thơm ngọt ngào của hoa nhài, được dùng nhiều trong sản xuất nước hoa. Công thức cấu tạo của benzyl acetate là:", "options": {"A": "CH3COOCH2C6H5.", "B": "C6H5COOCH3.", "C": "CH3COOC6H5.", "D": "C2H5COOCH2C6H5."}, "correct": "A", "solution": "Benzyl acetate được tạo thành từ acetic acid (CH3COOH) và benzyl alcohol (C6H5CH2OH), có công thức cấu tạo là CH3COOCH2C6H5."}, {"id": 7, "question": "(Hóa 12 - Chương 1: Acid béo) Palmitic acid là một acid béo no phổ biến trong dầu cọ và mỡ động vật. Công thức phân tử của palmitic acid là:", "options": {"A": "C15H31COOH.", "B": "C17H35COOH.", "C": "C17H33COOH.", "D": "C17H31COOH."}, "correct": "A", "solution": "Palmitic acid là acid béo bão hòa có 16 nguyên tử carbon: CH3[CH2]14COOH hay C15H31COOH (phân tử khối bằng 256)."}, {"id": 8, "question": "(Hóa 12 - Chương 1: Ester) Đun nóng ester methyl acrylate (CH2=CHCOOCH3) với lượng vừa đủ dung dịch NaOH, sản phẩm hữu cơ thu được gồm:", "options": {"A": "CH2=CHCOONa và CH3OH.", "B": "CH3COONa và C2H5OH.", "C": "CH2=CHCOONa và C2H5OH.", "D": "CH3COONa và CH3OH."}, "correct": "A", "solution": "Phản ứng thủy phân trong dung dịch kiềm: CH2=CHCOOCH3 + NaOH -> CH2=CHCOONa (sodium acrylate) + CH3OH (methanol)."}, {"id": 9, "question": "(Hóa 12 - Chương 1: Lipid - Chất béo) Trong công nghiệp thực phẩm, để chuyển hóa dầu thực vật (chất béo lỏng) thành bơ nhân tạo hoặc mỡ rắn tiện cho việc vận chuyển và bảo quản, người ta thực hiện phản ứng nào sau đây?", "options": {"A": "Thủy phân trong môi trường acid.", "B": "Hydrogen hóa (cộng H2 có xúc tác Ni, đun nóng).", "C": "Oxi hóa bằng không khí.", "D": "Bromine hóa bằng dung dịch Br2."}, "correct": "B", "solution": "Phản ứng hydrogen hóa chất béo không no (dầu lỏng như triolein) biến các liên kết đôi C=C thành liên kết đơn C-C tạo thành chất béo no (chất rắn như tristearin)."}, {"id": 10, "question": "(Hóa 12 - Chương 2: Carbohydrate) Cho các carbohydrate sau: glucose, fructose, saccharose, maltose. Chất nào sau đây KHÔNG có tính khử (không tham gia phản ứng tráng bạc với thuốc thử Tollens)?", "options": {"A": "Glucose.", "B": "Fructose.", "C": "Saccharose.", "D": "Maltose."}, "correct": "C", "solution": "Phân tử saccharose được tạo bởi liên kết α-1,2-glycoside giữa gốc α-glucose và β-fructose, cả hai nhóm -OH hemiacetal và hemiketal đều đã tham gia liên kết nên saccharose không thể mở vòng và không có tính khử."}, {"id": 11, "question": "(Hóa 12 - Chương 2: Carbohydrate) Monosaccharide nào sau đây chiếm khoảng 40% khối lượng trong mật ong, có độ ngọt sắc và ngọt hơn đường mía?", "options": {"A": "Glucose.", "B": "Fructose.", "C": "Saccharose.", "D": "Maltose."}, "correct": "B", "solution": "Fructose là monosaccharide có độ ngọt cao nhất trong các loại đường tự nhiên, chiếm khoảng 40% khối lượng mật ong (glucose chiếm khoảng 30%)."}, {"id": 12, "question": "(Hóa 12 - Chương 2: Carbohydrate) Nhỏ vài giọt dung dịch iodine vào lát cắt củ khoai tây tươi, vùng tiếp xúc lập tức xuất hiện màu gì?", "options": {"A": "Đỏ gạch.", "B": "Xanh tím.", "C": "Vàng cam.", "D": "Nâu đen."}, "correct": "B", "solution": "Khoai tây chứa nhiều tinh bột. Phân tử amylose trong tinh bột cuộn thành hình xoắn ốc hấp phụ các phân tử iodine tạo hợp chất bọc có màu xanh tím đặc trưng."}, {"id": 13, "question": "(Hóa 12 - Chương 3: Amine) Chất nào sau đây thuộc loại amine bậc ba?", "options": {"A": "CH3CH2CH2NH2.", "B": "CH3CH(NH2)CH3.", "C": "(CH3)3N.", "D": "CH3NHCH2CH3."}, "correct": "C", "solution": "Trimethylamine (CH3)3N có 3 gốc methyl liên kết với nguyên tử nitrogen nên là amine bậc ba. A và B là amine bậc một; D là amine bậc hai."}, {"id": 14, "question": "(Hóa 12 - Chương 3: Amine) Dung dịch chất nào sau đây làm quỳ tím chuyển sang màu xanh?", "options": {"A": "Aniline.", "B": "Ethylamine.", "C": "Glycine.", "D": "Alanine."}, "correct": "B", "solution": "Ethylamine (C2H5NH2) tan tốt trong nước và có tính base mạnh, làm quỳ tím hóa xanh."}, {"id": 15, "question": "(Hóa 12 - Chương 3: Amino acid) Amino acid nào sau đây trong phân tử chứa 2 nhóm carboxyl (-COOH) và 1 nhóm amino (-NH2)?", "options": {"A": "Alanine.", "B": "Glycine.", "C": "Lysine.", "D": "Glutamic acid."}, "correct": "D", "solution": "Glutamic acid có công thức HOOC-CH2-CH2-CH(NH2)-COOH, gồm 2 nhóm -COOH và 1 nhóm -NH2, có tính acid yếu làm quỳ tím chuyển màu hồng."}, {"id": 16, "question": "(Hóa 12 - Chương 3: Protein) Khi nhỏ dung dịch nitric acid đặc (HNO3) vào dung dịch lòng trắng trứng (albumin), thấy xuất hiện kết tủa màu vàng. Phản ứng này được gọi là:", "options": {"A": "Phản ứng màu biuret.", "B": "Phản ứng xanthoproteic.", "C": "Phản ứng thủy phân protein.", "D": "Phản ứng ester hóa."}, "correct": "B", "solution": "Dung dịch HNO3 đặc phản ứng với các gốc amino acid chứa vòng benzene (như phenylalanine, tyrosine) trong chuỗi protein tạo dẫn xuất nitro có màu vàng (phản ứng xanthoproteic)."}, {"id": 17, "question": "(Hóa 12 - Chương 3: Peptide) Số liên kết peptide có trong một phân tử tetrapeptide mạch hở Ala-Gly-Val-Ala là:", "options": {"A": "4.", "B": "3.", "C": "2.", "D": "5."}, "correct": "B", "solution": "Phân tử n-peptide mạch hở được tạo bởi n gốc α-amino acid liên kết với nhau bằng (n - 1) liên kết peptide. Tetrapeptide (n = 4) có 4 - 1 = 3 liên kết peptide."}, {"id": 18, "question": "(Hóa 12 - Tổng hợp Hóa hữu cơ C1-C3) Phát biểu nào sau đây là ĐÚNG?", "options": {"A": "Glucose và fructose là hai chất đồng phân cấu tạo của nhau.", "B": "Thủy phân hoàn toàn tinh bột trong môi trường acid chỉ thu được fructose.", "C": "Xà phòng và chất giặt rửa tổng hợp đều có thành phần chính là triester của glycerol.", "D": "Tất cả các peptide và protein đều hoàn toàn không tan trong nước."}, "correct": "A", "solution": "Glucose và fructose đều có công thức phân tử C6H12O6 nhưng glucose là polyhydroxy aldehyde còn fructose là polyhydroxy ketone nên chúng là đồng phân của nhau."}], "part2": [{"id": 1, "context": "(Hóa 12 - Chương 1: Lipid - Xà phòng hóa)\nTiến hành thí nghiệm xà phòng hóa tristearin trong phòng thí nghiệm theo các bước sau:\n- Bước 1: Cho vào bát sứ khoảng 2 gam tristearin và 4 - 5 mL dung dịch NaOH 40%.\n- Bước 2: Đun sôi nhẹ hỗn hợp, liên tục khuấy đều bằng đũa thủy tinh, thỉnh thoảng thêm vài giọt nước cất.\n- Bước 3: Sau khoảng 15 phút, rót thêm vào hỗn hợp 5 - 7 mL dung dịch NaCl bão hòa nóng, khuấy nhẹ rồi để nguội hỗn hợp.", "items": [{"id": "a", "text": "Ở bước 2, thỉnh thoảng thêm vài giọt nước cất nhằm mục đích giữ cho thể tích hỗn hợp không đổi và tránh cho chất hữu cơ bị phân hủy nhiệt do cạn khô.", "correct": true, "solution": "Ý a (Đúng): Nước bay hơi trong quá trình đun có thể làm hỗn hợp cạn khô dẫn đến cháy khét chất béo, việc thêm nước cất giúp phản ứng xà phòng hóa diễn ra thuận lợi."}, {"id": "b", "text": "Mục đích chính của việc thêm dung dịch NaCl bão hòa ở bước 3 là làm tăng tỉ trọng của pha lỏng và giảm độ tan của muối sodium stearate, giúp xà phòng kết tinh nổi lên trên.", "correct": true, "solution": "Ý b (Đúng): Dung dịch NaCl bão hòa giúp phân tách xà phòng (muối natri của acid béo) ra khỏi hỗn hợp nhờ hiện tượng析 xuất (muối kết tinh tách lớp)."}, {"id": "c", "text": "Sau bước 3, phần chất rắn màu trắng nổi lên trên bề mặt bát sứ chính là glycerol nguyên chất.", "correct": false, "solution": "Ý c (Sai): Chất rắn màu trắng nổi lên là muối sodium stearate (xà phòng); glycerol tan tốt trong dung dịch nằm ở lớp chất lỏng phía dưới."}, {"id": "d", "text": "Có thể thay tristearin bằng dầu dừa hoặc dầu đậu nành trong thí nghiệm trên thì hiện tượng thu được cũng tương tự.", "correct": true, "solution": "Ý d (Đúng): Dầu dừa và dầu đậu nành đều là các chất béo (chứa triglyceride), khi thủy phân trong NaOH cũng tạo ra muối của acid béo (xà phòng) và glycerol."}]}, {"id": 2, "context": "(Hóa 12 - Chương 2: Carbohydrate)\nCellulose là polysaccharide thiên nhiên cấu tạo nên màng tế bào thực vật, có công thức phân tử là (C6H10O5)n. Phân tử cellulose là chuỗi polymer không phân nhánh gồm nhiều gốc β-glucose liên kết với nhau qua liên kết β-1,4-glycoside. Công thức dạng mắt xích thường viết là [C6H7O2(OH)3]n.", "items": [{"id": "a", "text": "Phân tử cellulose có cấu trúc mạch thẳng, không phân nhánh.", "correct": true, "solution": "Ý a (Đúng): Các mắt xích β-glucose liên kết với nhau thành chuỗi thẳng dài không phân nhánh, các chuỗi này xếp song song và liên kết với nhau bằng liên kết hydrogen."}, {"id": "b", "text": "Mỗi mắt xích C6H10O5 trong phân tử cellulose còn lại 3 nhóm hydroxy (-OH) tự do.", "correct": true, "solution": "Ý b (Đúng): Công thức của mắt xích là [C6H7O2(OH)3], chứng minh mỗi đơn vị glucose còn 3 nhóm -OH tự do."}, {"id": "c", "text": "Cellulose tan tốt trong nước lạnh và phản ứng với dung dịch iodine tạo màu xanh tím tương tự tinh bột.", "correct": false, "solution": "Ý c (Sai): Cellulose hoàn toàn không tan trong nước và không tham gia phản ứng màu với iodine."}, {"id": "d", "text": "Cho cellulose phản ứng với dung dịch HNO3 đặc có mặt H2SO4 đặc đun nóng có thể điều chế được cellulose trinitrate dùng làm thuốc súng không khói.", "correct": true, "solution": "Ý d (Đúng): [C6H7O2(OH)3]n + 3nHNO3 -> [C6H7O2(ONO2)3]n + 3nH2O; cellulose trinitrate là chất nổ mạnh dùng chế tạo thuốc súng không khói."}]}, {"id": 3, "context": "(Hóa 12 - Chương 3: Peptide & Protein)\nInsulin là hormone peptide quan trọng do tế bào đảo tụy tiết ra để điều hòa lượng đường trong máu. Thủy phân không hoàn toàn một đoạn chuỗi peptide của insulin thu được heptapeptide X mạch hở có trình tự amino acid: Phe-Phe-Tyr-Thr-Pro-Lys-Thr.", "items": [{"id": "a", "text": "Trong phân tử heptapeptide X có chứa đúng 6 liên kết peptide.", "correct": true, "solution": "Ý a (Đúng): Heptapeptide gồm 7 đơn vị amino acid liên kết với nhau bằng 6 liên kết peptide (-CO-NH-)."}, {"id": "b", "text": "Amino acid đầu N của X là Phe (Phenylalanine) và amino acid đầu C là Thr (Threonine).", "correct": true, "solution": "Ý b (Đúng): Theo quy ước viết trình tự peptide: amino acid đầu N viết ở bên trái (Phe), amino acid đầu C viết ở bên phải (Thr)."}, {"id": "c", "text": "Heptapeptide X không có phản ứng màu biuret với Cu(OH)2 trong môi trường kiềm.", "correct": false, "solution": "Ý c (Sai): Các peptide có từ 2 liên kết peptide trở lên (tức từ tripeptide trở lên) đều tham gia phản ứng màu biuret tạo hợp chất màu tím đặc trưng."}, {"id": "d", "text": "Khi thủy phân hoàn toàn 1 mol heptapeptide X, thu được 5 loại amino acid khác nhau.", "correct": true, "solution": "Ý d (Đúng): Thu được: Phe (2 mol), Tyr (1 mol), Thr (2 mol), Pro (1 mol), Lys (1 mol) -> tổng cộng gồm 5 loại amino acid khác nhau."}]}, {"id": 4, "context": "(Hóa 10 & Hóa 11: Tốc độ phản ứng hóa học)\nXét phản ứng đơn giản xảy ra trong pha khí ở bình kín: 2NO(g) + O2(g) -> 2NO2(g).", "items": [{"id": "a", "text": "Biểu thức tốc độ tức thời của phản ứng theo định luật tác dụng khối lượng là v = k.[NO]^2.[O2].", "correct": true, "solution": "Ý a (Đúng): Đối với phản ứng đơn giản, bậc của phản ứng trùng với hệ số tỉ lượng trong phương trình: v = k.[NO]^2.[O2]."}, {"id": "b", "text": "Nếu tăng nồng độ của NO lên 3 lần và giữ nguyên nồng độ của O2 thì tốc độ phản ứng sẽ tăng lên 9 lần.", "correct": true, "solution": "Ý b (Đúng): v' = k.(3.[NO])^2.[O2] = 9.k.[NO]^2.[O2] = 9.v."}, {"id": "c", "text": "Tăng nhiệt độ của hệ làm tăng động năng và số va chạm hiệu quả giữa các phân tử chất phản ứng, từ đó làm tăng tốc độ phản ứng.", "correct": true, "solution": "Ý c (Đúng): Theo thuyết va chạm hoạt động, nhiệt độ tăng làm tăng tỷ lệ các phân tử có năng lượng vượt qua năng lượng hoạt hóa, làm tốc độ phản ứng tăng."}, {"id": "d", "text": "Trong bình kín dung tích không đổi, việc bơm thêm khí trơ argon (Ar) vào hệ sẽ làm tăng áp suất chung, do đó làm tăng tốc độ phản ứng.", "correct": false, "solution": "Ý d (Sai): Ở thể tích bình không đổi, thêm khí trơ không làm thay đổi nồng độ mol của các chất tham gia (NO và O2) nên tốc độ phản ứng không thay đổi."}]}], "part3": [{"id": 1, "question": "(Hóa 10 - Chương 6: Tốc độ phản ứng) Xét phản ứng: 2ClO2 + 2NaOH -> NaClO3 + NaClO2 + H2O. Tốc độ phản ứng có biểu thức dạng: v = k.[ClO2]^x.[NaOH]^y. Thực nghiệm cho thấy: khi giữ nguyên nồng độ NaOH và tăng gấp đôi nồng độ ClO2, tốc độ phản ứng tăng gấp 4 lần; khi giữ nguyên nồng độ ClO2 và tăng gấp đôi nồng độ NaOH, tốc độ phản ứng tăng gấp 2 lần. Xác định giá trị của biểu thức (x + y).", "correct": "3", "solution": "Câu 1 (Đáp số: 3): Tăng nồng độ ClO2 gấp 2 lần làm v tăng 4 lần -> 2^x = 4 -> x = 2. Tăng nồng độ NaOH gấp 2 lần làm v tăng 2 lần -> 2^y = 2 -> y = 1. Do đó: x + y = 2 + 1 = 3."}, {"id": 2, "question": "(Hóa 11 - Chương 1: Chuẩn độ acid - base) Chuẩn độ 10,0 mL dung dịch HCl chưa biết nồng độ bằng dung dịch chuẩn NaOH 0,10 M với chất chỉ thị phenolphthalein. Thể tích dung dịch NaOH tiêu tốn trung bình qua 3 lần chuẩn độ là 12,5 mL. Tính nồng độ mol (M) của dung dịch HCl ban đầu (làm tròn kết quả đến hàng phần trăm).", "correct": "0,13", "solution": "Câu 2 (Đáp số: 0,13): Phương trình phản ứng: HCl + NaOH -> NaCl + H2O. Ta có: n(HCl) = n(NaOH) = 0,0125 * 0,10 = 0,00125 mol. Nồng độ mol của HCl = 0,00125 / 0,010 = 0,125 M ≈ 0,13 M."}, {"id": 3, "question": "(Hóa 12 - Chương 1: Đồng phân ester) Ứng với công thức phân tử C4H8O2, có bao nhiêu đồng phân cấu tạo là ester mạch hở?", "correct": "4", "solution": "Câu 3 (Đáp số: 4): Các đồng phân ester mạch hở gồm: (1) HCOOCH2CH2CH3 (propyl formate), (2) HCOOCH(CH3)2 (isopropyl formate), (3) CH3COOCH2CH3 (ethyl acetate), (4) CH3CH2COOCH3 (methyl propionate). Tổng cộng có 4 đồng phân."}, {"id": 4, "question": "(Hóa 12 - Chương 2: Lên men tinh bột) Lên men 1 tấn khoai tươi chứa 70% tinh bột để sản xuất ethyl alcohol (ethanol) với hiệu suất của toàn bộ quá trình là 81%. Tính khối lượng ethanol thu được (theo đơn vị tấn; làm tròn kết quả đến hàng phần trăm).", "correct": "0,32", "solution": "Câu 4 (Đáp số: 0,32): Khối lượng tinh bột nguyên chất = 1 * 70% = 0,70 tấn. Sơ đồ: (C6H10O5)n -> 2n C2H5OH. Khối lượng ethanol theo lý thuyết = 0,70 * (2*46 / 162) = 0,3975 tấn. Do hiệu suất H = 81% nên khối lượng ethanol thực tế thu được = 0,3975 * 81% = 0,322 tấn ≈ 0,32 tấn."}, {"id": 5, "question": "(Hóa 12 - Chương 3: Dipeptide) Cho dipeptide mạch hở Gly-Ala. Phân tử khối của dipeptide này bằng bao nhiêu amu?", "correct": "146", "solution": "Câu 5 (Đáp số: 146): Phân tử khối = M(Gly) + M(Ala) - M(H2O) = 75 + 89 - 18 = 146 amu."}, {"id": 6, "question": "(Hóa 12 - Chương 1: Lipid - Phân tử khối) Thủy phân hoàn toàn triglyceride X (tripalmitin) thu được glycerol và muối sodium palmitate. Phân tử khối của tripalmitin (C15H31COO)3C3H5 bằng bao nhiêu amu?", "correct": "806", "solution": "Câu 6 (Đáp số: 806): Công thức phân tử của tripalmitin là C51H98O6. Phân tử khối = 3*255 (gốc C15H31COO) + 41 (gốc C3H5) = 765 + 41 = 806 amu."}]}, {"id": "de_03", "title": "ĐỀ SỐ 03", "name": "ĐỀ THI ÔN TẬP THPT MÔN HÓA HỌC - ĐỀ SỐ 03", "part1": [{"id": 1, "question": "(Hóa 10 - Liên kết hóa học) Chất nào sau đây KHÔNG tạo được liên kết hydrogen liên phân tử giữa các phân tử của chính nó?", "options": {"A": "H2O.", "B": "HF.", "C": "NH3.", "D": "H2S."}, "correct": "D", "solution": "Liên kết hydrogen liên phân tử được hình thành khi nguyên tử H liên kết với các nguyên tử có độ âm điện lớn và bán kính nhỏ như F, O, N (trong HF, H2O, NH3). Sulfur (S) có độ âm điện không đủ lớn và bán kính nguyên tử lớn nên phân tử H2S không tạo được liên kết hydrogen liên phân tử."}, {"id": 2, "question": "(Hóa 10 - Năng lượng hóa học) Phương trình nhiệt hóa học của phản ứng đốt cháy methane trong không khí như sau: CH4(g) + 2O2(g) -> CO2(g) + 2H2O(l) (ΔrH°298 = -890 kJ). Nhận xét nào sau đây là đúng?", "options": {"A": "Phản ứng xảy ra có sự hấp thụ nhiệt năng từ môi trường.", "B": "Phản ứng thuộc loại phản ứng tỏa nhiệt mạnh.", "C": "Phản ứng có biến thiên enthalpy mang giá trị dương.", "D": "Cần cung cấp nhiệt liên tục thì phản ứng mới duy trì được."}, "correct": "B", "solution": "Biến thiên enthalpy chuẩn của phản ứng có giá trị âm (ΔrH°298 = -890 kJ < 0), chứng tỏ đây là phản ứng tỏa nhiệt mạnh ra môi trường."}, {"id": 3, "question": "(Hóa 11 - Cân bằng hóa học) Cho các cân bằng hóa học sau trong bình kín ở nhiệt độ xác định. Cân bằng hóa học nào KHÔNG bị chuyển dịch khi thay đổi áp suất chung của hệ?", "options": {"A": "N2(g) + 3H2(g) ⇌ 2NH3(g).", "B": "2SO2(g) + O2(g) ⇌ 2SO3(g).", "C": "CO2(g) + H2(g) ⇌ CO(g) + H2O(g).", "D": "2NO2(g) ⇌ N2O4(g)."}, "correct": "C", "solution": "Ở cân bằng C, tổng số mol khí ở vế trái (1 + 1 = 2 mol) bằng tổng số mol khí ở vế phải (1 + 1 = 2 mol). Do số mol khí hai vế bằng nhau (∆n = 0) nên khi thay đổi áp suất, cân bằng không bị chuyển dịch."}, {"id": 4, "question": "(Hóa 11 - Phương pháp tách biệt chất hữu cơ) Phương pháp kết tinh được ứng dụng phổ biến trong đời sống và sản xuất đối với trường hợp nào dưới đây?", "options": {"A": "Nấu rượu gạo thủ công từ cơm ủ men.", "B": "Sản xuất đường cát, đường phèn từ nước mía.", "C": "Chiết lấy tinh dầu sả, tinh dầu tràm bằng hơi nước.", "D": "Tách dầu ăn nổi trên mặt nước canh."}, "correct": "B", "solution": "Sản xuất đường cát và đường phèn từ nước mía dựa trên phương pháp cô đặc và kết tinh saccharose từ dung dịch bão hòa khi hạ nhiệt độ."}, {"id": 5, "question": "(Hóa 11 - Hydrocarbon) Khí Biogas là nguồn năng lượng tái tạo sạch được sinh ra từ quá trình phân hủy kị khí các chất thải hữu cơ chăn nuôi. Thành phần khí chiếm tỉ lệ lớn nhất trong biogas là:", "options": {"A": "Methane (CH4).", "B": "Ethylene (C2H4).", "C": "Acetylene (C2H2).", "D": "Carbon monoxide (CO)."}, "correct": "A", "solution": "Khí biogas có thành phần chính là methane (CH4, chiếm khoảng 50 - 70% thể tích), phần còn lại là CO2 và một lượng nhỏ các khí khác."}, {"id": 6, "question": "(Hóa 12 - Chương 1: Ester) Hợp chất nào sau đây thuộc loại ester đơn chức, no, mạch hở?", "options": {"A": "CH3COOC2H5.", "B": "CH2=CHCOOCH3.", "C": "CH3COOC6H5.", "D": "(COOCH3)2."}, "correct": "A", "solution": "Ethyl acetate (CH3COOC2H5) có công thức phân tử C4H8O2, phù hợp công thức chung CnH2nO2 của ester đơn chức, no, mạch hở."}, {"id": 7, "question": "(Hóa 12 - Chương 1: Ester) Đun nóng ester vinyl acetate (CH3COOCH=CH2) với dung dịch NaOH vừa đủ, sản phẩm hữu cơ thu được gồm:", "options": {"A": "CH3COONa và CH3CHO.", "B": "CH2=CHCOONa và CH3OH.", "C": "CH3COONa và C2H5OH.", "D": "CH3COONa và CH2=CHOH."}, "correct": "A", "solution": "Gốc vinyl (-CH=CH2) liên kết trực tiếp với nguyên tử oxy của nhóm ester, khi thủy phân sinh ra alcohol không bền CH2=CH-OH lập tức đồng phân hóa chuyển thành aldehyde CH3CHO (acetaldehyde)."}, {"id": 8, "question": "(Hóa 12 - Chương 1: Lipid - Chất béo) Chất nào sau đây là chất béo không no, ở nhiệt độ phòng tồn tại ở trạng thái lỏng?", "options": {"A": "Tristearin.", "B": "Tripalmitin.", "C": "Triolein.", "D": "Methyl stearate."}, "correct": "C", "solution": "Triolein (C17H33COO)3C3H5 chứa các gốc acid béo không no (oleic acid có 1 nối đôi C=C) nên có nhiệt độ nóng chảy thấp, ở nhiệt độ phòng là chất lỏng (thành phần chính của dầu oliu, mỡ cá)."}, {"id": 9, "question": "(Hóa 12 - Chương 1: Chất giặt rửa) Chất giặt rửa tổng hợp sodium alkylsulfate có công thức dạng ROSO3Na. Gốc hydrocarbon R- mạch dài trong phân tử có vai trò gì trong quá trình giặt rửa?", "options": {"A": "Là đầu phân cực ưa nước giúp phân tán vào nước.", "B": "Là đuôi dài kị nước, thâm nhập và hòa tan vào các hạt vết bẩn dầu mỡ.", "C": "Tạo kết tủa với các ion khoáng trong nước cứng.", "D": "Làm mềm sợi vải và tạo bọt xà phòng."}, "correct": "B", "solution": "Phần đuôi hydrocarbon R- không phân cực kị nước có tính ưa dầu mỡ, dễ thâm nhập vào các phân tử chất bẩn dầu mỡ để cuốn vết bẩn ra khỏi sợi vải."}, {"id": 10, "question": "(Hóa 12 - Chương 2: Carbohydrate) Phân tử disaccharide nào sau đây được cấu tạo từ một gốc α-glucose và một gốc β-fructose qua liên kết α-1,2-glycoside?", "options": {"A": "Maltose.", "B": "Saccharose.", "C": "Cellulose.", "D": "Glucose."}, "correct": "B", "solution": "Saccharose là disaccharide tạo bởi liên kết giữa C1 của gốc α-glucose với C2 của gốc β-fructose qua nguyên tử oxygen (liên kết α-1,2-glycoside)."}, {"id": 11, "question": "(Hóa 12 - Chương 2: Carbohydrate) Nhận định nào sau đây KHÔNG đúng khi so sánh glucose và fructose?", "options": {"A": "Cả hai chất đều có cùng công thức phân tử là C6H12O6.", "B": "Cả hai chất đều hòa tan Cu(OH)2 ở nhiệt độ thường tạo dung dịch màu xanh lam.", "C": "Cả glucose và fructose đều làm mất màu nước bromine ở điều kiện thường.", "D": "Cả hai chất đều tham gia phản ứng tráng bạc với thuốc thử Tollens."}, "correct": "C", "solution": "Fructose chứa nhóm ketone (-CO-) không có tính khử đối với nước bromine nên không làm mất màu nước bromine; chỉ có glucose (chứa nhóm -CHO) mới làm mất màu nước bromine. Do đó dùng nước bromine để phân biệt glucose và fructose."}, {"id": 12, "question": "(Hóa 12 - Chương 2: Carbohydrate) Tinh bột trong gạo gồm hai thành phần là amylose và amylopectin. Thành phần có cấu trúc mạch phân nhánh là:", "options": {"A": "Amylose.", "B": "Amylopectin.", "C": "Cellulose.", "D": "Maltose."}, "correct": "B", "solution": "Amylose có cấu trúc mạch thẳng xoắn ốc (chỉ có liên kết α-1,4-glycoside); còn amylopectin có cấu trúc mạch phân nhánh do chứa thêm các liên kết α-1,6-glycoside tại các điểm phân nhánh."}, {"id": 13, "question": "(Hóa 12 - Chương 3: Amine) Aniline (phenylamine) là amine thơm đơn chức có công thức phân tử là:", "options": {"A": "C6H7N.", "B": "C7H9N.", "C": "C6H5N.", "D": "C6H8N2."}, "correct": "A", "solution": "Aniline có công thức phân tử là C6H5NH2 hay C6H7N (phân tử khối bằng 93 amu)."}, {"id": 14, "question": "(Hóa 12 - Chương 3: Amino acid) Nhúng giấy quỳ tím vào dung dịch glutamic acid HOOC-CH2-CH2-CH(NH2)-COOH, màu của giấy quỳ tím sẽ chuyển sang:", "options": {"A": "Màu xanh.", "B": "Màu đỏ (hoặc hồng).", "C": "Màu tím (không đổi màu).", "D": "Màu vàng."}, "correct": "B", "solution": "Phân tử glutamic acid có 2 nhóm carboxyl (-COOH) mang tính acid và chỉ có 1 nhóm amino (-NH2) mang tính base, nên dung dịch có tính acid yếu làm quỳ tím chuyển sang màu đỏ (hồng)."}, {"id": 15, "question": "(Hóa 12 - Chương 3: Amino acid) Amino acid thiết yếu nào sau đây trong phân tử có chứa một nhóm phenyl (vòng thơm C6H5-)?", "options": {"A": "Alanine.", "B": "Phenylalanine.", "C": "Glycine.", "D": "Valine."}, "correct": "B", "solution": "Phenylalanine (Phe) có công thức cấu tạo C6H5-CH2-CH(NH2)-COOH, là một α-amino acid có chứa vòng thơm."}, {"id": 16, "question": "(Hóa 12 - Chương 3: Peptide) Thủy phân hoàn toàn 1 mol tripeptide Gly-Ala-Val trong dung dịch NaOH dư đun nóng, số mol NaOH tham gia phản ứng tối đa là:", "options": {"A": "1 mol.", "B": "2 mol.", "C": "3 mol.", "D": "4 mol."}, "correct": "C", "solution": "Tripeptide mạch hở tạo từ 3 α-amino acid monoamino monocarboxylic (Gly, Ala, Val) khi thủy phân hoàn toàn trong kiềm phản ứng với NaOH theo tỉ lệ mol 1 : 3 tạo 3 mol muối và 1 mol H2O."}, {"id": 17, "question": "(Hóa 12 - Chương 3: Protein) Hiện tượng 'gạch cua' đông tụ và nổi lên thành từng mảng khi nấu canh riêu cua là minh họa cho hiện tượng nào sau đây?", "options": {"A": "Sự đông tụ protein do tác dụng của nhiệt độ.", "B": "Phản ứng thủy phân hoàn toàn protein.", "C": "Phản ứng màu biuret của protein.", "D": "Sự kết tinh của các khoáng chất trong thịt cua."}, "correct": "A", "solution": "Protein dạng dung dịch keo hòa tan trong nước (thịt cua xay) khi bị đun nóng sẽ bị biến tính và mất cấu trúc bậc cao, dẫn đến hiện tượng đông tụ lại thành từng mảng và nổi lên trên mặt nước."}, {"id": 18, "question": "(Hóa 12 - Tổng hợp Hóa hữu cơ C1-C3) Phát biểu nào sau đây là ĐÚNG?", "options": {"A": "Phản ứng xà phòng hóa chất béo bằng dung dịch kiềm là phản ứng thuận nghịch.", "B": "Ở điều kiện thường, các amino acid là chất rắn kết tinh, có nhiệt độ nóng chảy cao và dễ tan trong nước.", "C": "Tinh bột và cellulose là hai chất đồng phân của nhau vì đều có công thức (C6H10O5)n.", "D": "Dung dịch aniline làm quỳ tím chuyển sang màu xanh rõ rệt."}, "correct": "B", "solution": "Do tồn tại ở dạng ion lưỡng cực H3N+-R-COO-, amino acid là những hợp chất có cấu trúc tinh thể ion nên là chất rắn, nhiệt độ nóng chảy cao và tan tốt trong nước."}], "part2": [{"id": 1, "context": "(Hóa 12 - Chương 1: Xà phòng & Chất giặt rửa)\nXà phòng và chất giặt rửa tổng hợp là những sản phẩm tẩy rửa thiết yếu trong đời sống hằng ngày.", "items": [{"id": "a", "text": "Xà phòng truyền thống là hỗn hợp muối sodium hoặc potassium của các acid béo mạch carbon dài không phân nhánh.", "correct": true, "solution": "Ý a (Đúng): Xà phòng được sản xuất từ phản ứng xà phòng hóa mỡ động vật hoặc dầu thực vật với dung dịch kiềm NaOH/KOH."}, {"id": "b", "text": "Ưu điểm nổi bật của chất giặt rửa tổng hợp so với xà phòng là có thể sử dụng hiệu quả trong môi trường nước cứng mà không bị tạo kết tủa mất tác dụng giặt rửa.", "correct": true, "solution": "Ý b (Đúng): Muối calcium và magnesium của chất giặt rửa tổng hợp (như alkylsulfate, alkylbenzenesulfonate) tan tốt trong nước, không tạo kết tủa như muối của acid béo."}, {"id": "c", "text": "Phân tử chất giặt rửa có cấu trúc gồm một đầu kị nước gắn với một đuôi hydrocarbon phân cực ưa nước.", "correct": false, "solution": "Ý c (Sai): Cấu trúc đúng là: một đầu phân cực ưa nước (nhóm -COO-, -SO3-, -OSO3-) gắn với một đuôi hydrocarbon dài kị nước (ưa dầu mỡ)."}, {"id": "d", "text": "Nước chiết từ quả bồ hòn, quả bồ kết có tác dụng giặt rửa tự nhiên nhờ chứa hàm lượng lớn hợp chất saponin.", "correct": true, "solution": "Ý d (Đúng): Saponin trong bồ hòn, bồ kết là chất hoạt động bề mặt tự nhiên có khả năng tạo bọt và tẩy rửa vết bẩn an toàn."}]}, {"id": 2, "context": "(Hóa 12 - Chương 2: Carbohydrate)\nSaccharose (đường mía) là disaccharide phổ biến trong tự nhiên có công thức phân tử C12H22O11.", "items": [{"id": "a", "text": "Phân tử saccharose được cấu tạo từ một gốc α-glucose và một gốc β-fructose liên kết với nhau qua liên kết α-1,2-glycoside.", "correct": true, "solution": "Ý a (Đúng): Liên kết glycoside được hình thành giữa nhóm -OH hemiacetal ở C1 của α-glucose và nhóm -OH hemiketal ở C2 của β-fructose."}, {"id": "b", "text": "Do không còn nhóm -OH hemiacetal hoặc hemiketal tự do nên saccharose không thể mở vòng và không có tính khử (không tráng bạc).", "correct": true, "solution": "Ý b (Đúng): Saccharose là đường không khử vì cả hai nhóm hemiacetal/hemiketal đều đã tham gia liên kết glycoside."}, {"id": "c", "text": "Thủy phân hoàn toàn saccharose trong môi trường acid chỉ thu được một loại monosaccharide duy nhất là glucose.", "correct": false, "solution": "Ý c (Sai): Thủy phân hoàn toàn saccharose sinh ra hỗn hợp gồm 1 phân tử glucose và 1 phân tử fructose."}, {"id": "d", "text": "Dung dịch nước mía chứa nhiều saccharose có khả năng hòa tan Cu(OH)2 ở nhiệt độ thường tạo phức dung dịch có màu xanh lam thẫm.", "correct": true, "solution": "Ý d (Đúng): Phân tử saccharose có nhiều nhóm -OH kề nhau nên mang tính chất của polyalcohol, hòa tan Cu(OH)2 tạo phức màu xanh lam thẫm."}]}, {"id": 3, "context": "(Hóa 12 - Chương 3: Amino acid & Điện di)\nCho bảng giá trị điểm đẳng điện pI của 3 amino acid sau:\n- Glycine (Gly): pI = 5,97\n- Glutamic acid (Glu): pI = 3,22\n- Lysine (Lys): pI = 9,74\nKhi đặt trong một điện trường: các phần tử mang điện tích dương (cation) sẽ di chuyển về cực âm (cathode); các phần tử mang điện tích âm (anion) sẽ di chuyển về cực dương (anode); phần tử trung hòa điện hầu như không dịch chuyển.", "items": [{"id": "a", "text": "Tại môi trường đệm có pH = 6,0, phân tử glycine tồn tại chủ yếu ở dạng ion lưỡng cực trung hòa điện và hầu như không dịch chuyển trong điện trường.", "correct": true, "solution": "Ý a (Đúng): pH = 6,0 rất sát với pI = 5,97 của Gly nên nồng độ ion lưỡng cực đạt cực đại và không mang điện tích tổng cộng."}, {"id": "b", "text": "Tại môi trường đệm có pH = 6,0, glutamic acid (pI = 3,22 < pH) nhận điện tích âm và di chuyển về phía cực dương (anode).", "correct": true, "solution": "Ý b (Đúng): Do pH = 6,0 > pI = 3,22 nên phân tử Glu nhường H+ tạo anion mang điện tích âm, di chuyển về cực dương."}, {"id": "c", "text": "Tại môi trường đệm có pH = 6,0, lysine (pI = 9,74 > pH) nhận điện tích dương và di chuyển về phía cực âm (cathode).", "correct": true, "solution": "Ý c (Đúng): Do pH = 6,0 < pI = 9,74 nên phân tử Lys nhận H+ tạo cation mang điện tích dương, di chuyển về cực âm."}, {"id": "d", "text": "Nhờ sự khác biệt về điện tích và hướng di chuyển ở pH = 6,0, phương pháp điện di cho phép phân tách riêng rẽ hoàn toàn hỗn hợp gồm 3 amino acid trên.", "correct": true, "solution": "Ý d (Đúng): Tại pH = 6,0: Gly đứng yên, Glu chạy về cực dương, Lys chạy về cực âm nên cả 3 chất được tách riêng rẽ một cách hoàn hảo."}]}, {"id": 4, "context": "(Hóa 10 & Hóa 11: Năng lượng và Tốc độ phản ứng)\nKhí propane (C3H8) là thành phần chính của khí đốt hóa lỏng (LPG). Phương trình nhiệt hóa học của phản ứng đốt cháy propane như sau:\nC3H8(g) + 5O2(g) -> 3CO2(g) + 4H2O(l) (ΔrH°298 = -2220 kJ)", "items": [{"id": "a", "text": "Phản ứng đốt cháy propane là phản ứng tỏa nhiệt mạnh ra môi trường xung quanh.", "correct": true, "solution": "Ý a (Đúng): ΔrH°298 = -2220 kJ < 0 biểu thị phản ứng tỏa nhiệt lớn."}, {"id": "b", "text": "Khi đốt cháy hoàn toàn 44 gam propane (1 mol) ở điều kiện chuẩn, lượng nhiệt giải phóng ra là 2220 kJ.", "correct": true, "solution": "Ý b (Đúng): Khối lượng mol của C3H8 là 44 g/mol. 1 mol propane cháy hoàn toàn tỏa ra đúng 2220 kJ."}, {"id": "c", "text": "Trộn đều khí propane với không khí trước khi đánh lửa giúp tăng diện tích tiếp xúc giữa các chất phản ứng, từ đó làm tăng tốc độ phản ứng cháy.", "correct": true, "solution": "Ý c (Đúng): Hòa trộn đều nhiên liệu khí với chất oxi hóa giúp tăng số va chạm hiệu quả giữa các phân tử, làm phản ứng cháy diễn ra mãnh liệt và hoàn toàn."}, {"id": "d", "text": "Biến thiên enthalpy chuẩn của phản ứng trên được tính bằng tổng nhiệt tạo thành chuẩn của các chất phản ứng trừ đi tổng nhiệt tạo thành chuẩn của các sản phẩm.", "correct": false, "solution": "Ý d (Sai): Công thức đúng theo nhiệt tạo thành chuẩn: ΔrH°298 = ∑ΔfH°298(sản phẩm) - ∑ΔfH°298(chất phản ứng)."}]}], "part3": [{"id": 1, "question": "(Hóa 10 - Chương 5: Năng lượng hóa học) Một bình gas sinh hoạt loại 12 cân chứa 12 kg khí hóa lỏng (LPG) gồm propane (C3H8) và butane (C4H10) với tỉ lệ mol tương ứng là 2 : 3. Biết khi đốt cháy hoàn toàn, 1 mol propane tỏa ra 2220 kJ và 1 mol butane tỏa ra 2850 kJ nhiệt lượng. Tính tổng nhiệt lượng (MJ) tỏa ra khi đốt cháy hoàn toàn 12 kg khí gas trong bình trên (làm tròn kết quả đến hàng đơn vị; biết 1 MJ = 1000 kJ).", "correct": "595", "solution": "Câu 1 (Đáp số: 595): Gọi số mol propane là 2x (mol) và số mol butane là 3x (mol). Khối lượng bình gas = 44*(2x) + 58*(3x) = 88x + 174x = 262x = 12000 g -> x = 45,8015 mol. Số mol propane = 91,603 mol; số mol butane = 137,405 mol. Tổng nhiệt lượng tỏa ra Q = 91,603 * 2220 + 137,405 * 2850 = 203358,66 + 391604,25 = 594962,9 kJ ≈ 594,96 MJ ≈ 595 MJ."}, {"id": 2, "question": "(Hóa 11 - Chương 1: Cân bằng hóa học) Cho phản ứng tổng hợp hydrogen iodide trong bình kín ở 430°C: H2(g) + I2(g) ⇌ 2HI(g). Ở trạng thái cân bằng, nồng độ của các chất là: [H2] = 0,135 M; [I2] = 0,135 M; [HI] = 0,895 M. Tính hằng số cân bằng KC của phản ứng ở nhiệt độ trên (làm tròn kết quả đến hàng đơn vị).", "correct": "44", "solution": "Câu 2 (Đáp số: 44): Biểu thức hằng số cân bằng: KC = [HI]^2 / ([H2].[I2]) = (0,895)^2 / (0,135 * 0,135) = 0,801025 / 0,018225 = 43,95 ≈ 44."}, {"id": 3, "question": "(Hóa 12 - Chương 1: Phân tử khối chất béo) Thủy phân hoàn toàn một chất béo X (triglyceride) bằng dung dịch NaOH vừa đủ, thu được glycerol và hỗn hợp hai muối gồm sodium oleate (C17H33COONa) và sodium stearate (C17H35COONa). Biết trong phân tử X có chứa hai gốc oleate và một gốc stearate. Phân tử khối của chất béo X bằng bao nhiêu amu?", "correct": "886", "solution": "Câu 3 (Đáp số: 886): Công thức cấu tạo của chất béo X là (C17H33COO)2(C17H35COO)C3H5. Phân tử khối = 2*281 (gốc oleate) + 283 (gốc stearate) + 41 (gốc glyceryl) = 562 + 283 + 41 = 886 amu."}, {"id": 4, "question": "(Hóa 12 - Chương 2: Cấu tạo Carbohydrate) Phân tử saccharose được tạo thành từ một đơn vị α-glucose và một đơn vị β-fructose qua liên kết α-1,2-glycoside. Mỗi phân tử saccharose còn lại bao nhiêu nhóm hydroxy (-OH) tự do?", "correct": "8", "solution": "Câu 4 (Đáp số: 8): Glucose có 5 nhóm -OH, fructose có 5 nhóm -OH. Khi tạo liên kết glycoside qua 2 nhóm -OH ở vị trí C1 (glucose) và C2 (fructose) tách ra 1 phân tử H2O, trong phân tử saccharose còn lại: (5 - 1) + (5 - 1) = 8 nhóm -OH tự do."}, {"id": 5, "question": "(Hóa 12 - Chương 3: Amino acid) Glycine là amino acid đơn giản nhất, có công thức cấu tạo thu gọn là H2N-CH2-COOH. Khối lượng mol phân tử của glycine bằng bao nhiêu g/mol?", "correct": "75", "solution": "Câu 5 (Đáp số: 75): Khối lượng mol của glycine H2N-CH2-COOH = 14 + 2 + 12 + 2 + 12 + 32 + 1 = 75 g/mol."}, {"id": 6, "question": "(Hóa 12 - Chương 3: Thủy phân Peptide) Cho chuỗi hexapeptide mạch hở: Asp-Gly-Ser-Leu-Tyr-Gly. Trong phản ứng thủy phân không hoàn toàn hexapeptide này, thu được tối đa bao nhiêu tripeptide khác nhau?", "correct": "4", "solution": "Câu 6 (Đáp số: 4): Các đoạn tripeptide gồm 3 mắt xích liên tiếp: (1) Asp-Gly-Ser, (2) Gly-Ser-Leu, (3) Ser-Leu-Tyr, (4) Leu-Tyr-Gly. Cả 4 tripeptide này đều khác nhau, do đó thu được tối đa 4 tripeptide khác nhau."}]}];
+  </script>
+
+  <!-- APPLICATION LOGIC SCRIPT -->
+  <script>
+// Application State
+let currentStudent = {
+  name: '',
+  class: ''
+};
+let currentExam = null; // object of active exam
+let examAnswers = {
+  part1: {}, // qId -> 'A' | 'B' | 'C' | 'D'
+  part2: {}, // qId -> { a: bool, b: bool, c: bool, d: bool }
+  part3: {}  // qId -> 'string'
+};
+let examTimerInterval = null;
+let timerSecondsRemaining = 50 * 60; // 50 minutes = 3000s
+let examStartTime = null;
+
+// Initialize on DOM ready
+window.addEventListener('DOMContentLoaded', () => {
+  loadSavedStudent();
+  renderExamSelectionList();
+  checkSavedGSheet();
+  renderTeacherTable();
+});
+
+// Toast notification helper
+function showToast(msg, duration = 3000) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+  const toast = document.createElement('div');
+  toast.className = 'toast-msg';
+  toast.innerHTML = `
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <span>${msg}</span>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// Navigation / View Switching
+function switchView(viewId) {
+  document.querySelectorAll('.view-panel').forEach(el => el.classList.remove('active'));
+  const target = document.getElementById(viewId);
+  if (target) target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Toggle header actions
+  const btnSwitchStudent = document.getElementById('btnSwitchToStudent');
+  if (btnSwitchStudent) {
+    if (viewId === 'viewTeacherDashboard') {
+      btnSwitchStudent.style.display = 'inline-flex';
+    } else {
+      btnSwitchStudent.style.display = 'none';
+    }
+  }
+}
+
+function navigateToHome() {
+  if (currentExam) {
+    confirmExitExam();
+  } else if (currentStudent.name) {
+    switchView('viewExamSelect');
+  } else {
+    switchView('viewStudentLogin');
+  }
+}
+
+function navigateToSelectExam() {
+  if (currentStudent.name) {
+    renderExamSelectionList();
+    switchView('viewExamSelect');
+  } else {
+    switchView('viewStudentLogin');
+  }
+}
+
+// 1. Student Authentication
+function handleStudentLogin(e) {
+  e.preventDefault();
+  const name = document.getElementById('inputStudentName').value.trim();
+  const className = document.getElementById('inputStudentClass').value.trim();
+  if (!name || !className) return;
+
+  currentStudent = { name, class: className };
+  localStorage.setItem('chemistry_current_student', JSON.stringify(currentStudent));
+
+  updateStudentHeader();
+  renderExamSelectionList();
+  switchView('viewExamSelect');
+  showToast(`Chào mừng em ${name} (Lớp ${className})!`);
+}
+
+function loadSavedStudent() {
+  const saved = localStorage.getItem('chemistry_current_student');
+  if (saved) {
+    try {
+      currentStudent = JSON.parse(saved);
+      updateStudentHeader();
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
+function updateStudentHeader() {
+  if (!currentStudent.name) return;
+  const nameEl = document.getElementById('displayStudentHeader');
+  const classEl = document.getElementById('displayClassHeader');
+  const avatarEl = document.getElementById('avatarLetter');
+  if (nameEl) nameEl.textContent = `Học sinh: ${currentStudent.name}`;
+  if (classEl) classEl.textContent = `Lớp: ${currentStudent.class} • Trường THPT Quang Trung`;
+  if (avatarEl) avatarEl.textContent = currentStudent.name.charAt(0).toUpperCase();
+}
+
+function logoutStudent() {
+  localStorage.removeItem('chemistry_current_student');
+  currentStudent = { name: '', class: '' };
+  const nameInp = document.getElementById('inputStudentName');
+  const classInp = document.getElementById('inputStudentClass');
+  if (nameInp) nameInp.value = '';
+  if (classInp) classInp.value = '';
+  switchView('viewStudentLogin');
+}
+
+// 2. Exam Selection List
+function getStudentSubmissions() {
+  const saved = localStorage.getItem('chemistry_exam_submissions');
+  return saved ? JSON.parse(saved) : [];
+}
+
+function saveStudentSubmissions(subs) {
+  localStorage.setItem('chemistry_exam_submissions', JSON.stringify(subs));
+}
+
+function renderExamSelectionList() {
+  const container = document.getElementById('examSelectionGrid');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const subs = getStudentSubmissions();
+
+  EXAMS_DATABASE.forEach((exam) => {
+    const mySub = subs.find(s => s.student_name === currentStudent.name && s.student_class === currentStudent.class && s.exam_id === exam.title);
+
+    const card = document.createElement('div');
+    card.className = 'exam-card';
+
+    let statusHtml = '';
+    let buttonText = 'Bắt đầu làm bài';
+    if (mySub) {
+      statusHtml = `<div class="exam-status-box status-done">✓ Đã làm: ${mySub.total_score.toFixed(2)}/10 điểm (${mySub.timestamp})</div>`;
+      buttonText = 'Làm lại đề thi';
+    } else {
+      statusHtml = `<div class="exam-status-box status-not-done">Chưa hoàn thành</div>`;
+    }
+
+    card.innerHTML = `
+      <div>
+        <div class="exam-card-badge">Đề chuẩn THPT 2026-2027</div>
+        <h3 class="exam-card-title">${exam.title}</h3>
+        <p class="exam-card-desc">Bao gồm 3 phần thi theo cấu trúc định dạng chuẩn mới nhất của Bộ GD&ĐT.</p>
+        
+        <ul class="exam-meta-list">
+          <li class="exam-meta-item">
+            <span>Thời gian làm bài:</span>
+            <span>50 phút</span>
+          </li>
+          <li class="exam-meta-item">
+            <span>Số lượng câu hỏi:</span>
+            <span>28 câu (Phần I, II, III)</span>
+          </li>
+          <li class="exam-meta-item">
+            <span>Thang điểm:</span>
+            <span>10.0 điểm</span>
+          </li>
+        </ul>
+
+        ${statusHtml}
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-primary" style="flex:1;" onclick="startExam('${exam.id}')">
+          ${buttonText}
+        </button>
+        ${mySub ? `<button class="btn btn-outline btn-sm" onclick="viewMyPreviousResult('${exam.title}')">Xem lại</button>` : ''}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// 3. Exam Taking View & Countdown Timer
+function startExam(examId) {
+  currentExam = EXAMS_DATABASE.find(e => e.id === examId);
+  if (!currentExam) return;
+
+  examAnswers = {
+    part1: {},
+    part2: {},
+    part3: {}
+  };
+
+  const titleEl = document.getElementById('takingExamTitle');
+  const infoEl = document.getElementById('takingCandidateInfo');
+  if (titleEl) titleEl.textContent = currentExam.title;
+  if (infoEl) infoEl.textContent = `Thí sinh: ${currentStudent.name} - Lớp ${currentStudent.class}`;
+
+  // 50 minutes countdown = 3000 seconds
+  timerSecondsRemaining = 50 * 60;
+  examStartTime = new Date();
+  updateTimerDisplay();
+
+  if (examTimerInterval) clearInterval(examTimerInterval);
+  examTimerInterval = setInterval(() => {
+    timerSecondsRemaining--;
+    updateTimerDisplay();
+    if (timerSecondsRemaining <= 0) {
+      clearInterval(examTimerInterval);
+      showToast('Hết thời gian 50 phút! Hệ thống đang tự động nộp bài...');
+      submitExamFinal(true);
+    }
+  }, 1000);
+
+  renderExamQuestions();
+  renderPalette();
+  switchView('viewExamTaking');
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSecondsRemaining / 60);
+  const s = timerSecondsRemaining % 60;
+  const text = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  const timerText = document.getElementById('examTimerText');
+  const timerBox = document.getElementById('examTimerBox');
+
+  if (timerText) timerText.textContent = text;
+  if (timerBox) {
+    if (timerSecondsRemaining < 300) {
+      timerBox.classList.add('warning');
+    } else {
+      timerBox.classList.remove('warning');
+    }
+  }
+}
+
+function renderExamQuestions() {
+  const container = document.getElementById('examQuestionsContainer');
+  if (!container) return;
+  container.innerHTML = '';
+
+  // PHẦN I
+  const p1Box = document.createElement('div');
+  p1Box.className = 'exam-section-card';
+  p1Box.innerHTML = `
+    <div class="section-banner">
+      <h3>PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn</h3>
+      <p>Thí sinh trả lời từ Câu 1 đến Câu 18. Mỗi câu chỉ chọn một phương án đúng duy nhất. (Mỗi câu trả lời đúng được 0,25 điểm)</p>
+    </div>
+  `;
+
+  currentExam.part1.forEach(q => {
+    const qEl = document.createElement('div');
+    qEl.className = 'question-item';
+    qEl.id = `q_p1_${q.id}`;
+
+    let optsHtml = '';
+    ['A', 'B', 'C', 'D'].forEach(letter => {
+      const optText = q.options[letter] || '';
+      optsHtml += `
+        <label class="option-label" id="opt_lbl_${q.id}_${letter}" onclick="selectPart1Option(${q.id}, '${letter}')">
+          <input type="radio" name="p1_q_${q.id}" value="${letter}">
+          <span class="option-letter">${letter}.</span>
+          <span style="font-size:0.92rem;">${optText}</span>
+        </label>
+      `;
+    });
+
+    qEl.innerHTML = `
+      <div class="question-title">
+        <span class="question-badge-num">Câu ${q.id}</span>
+        ${q.question}
+      </div>
+      <div class="options-grid">${optsHtml}</div>
+    `;
+    p1Box.appendChild(qEl);
+  });
+  container.appendChild(p1Box);
+
+  // PHẦN II
+  const p2Box = document.createElement('div');
+  p2Box.className = 'exam-section-card';
+  p2Box.innerHTML = `
+    <div class="section-banner">
+      <h3>PHẦN II. Câu trắc nghiệm Đúng / Sai</h3>
+      <p>Thí sinh trả lời từ Câu 1 đến Câu 4. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn Đúng hoặc Sai. (Điểm tối đa mỗi câu là 1,0 điểm)</p>
+    </div>
+  `;
+
+  currentExam.part2.forEach(q => {
+    const qEl = document.createElement('div');
+    qEl.className = 'question-item';
+    qEl.id = `q_p2_${q.id}`;
+
+    let rowsHtml = '';
+    q.items.forEach(item => {
+      rowsHtml += `
+        <tr>
+          <td style="line-height:1.5;"><strong>${item.id})</strong> ${item.text}</td>
+          <td style="width:160px; text-align:center;">
+            <div class="tf-btn-group">
+              <button type="button" class="btn-tf" id="tf_btn_${q.id}_${item.id}_true" onclick="selectPart2Item(${q.id}, '${item.id}', true)">Đúng</button>
+              <button type="button" class="btn-tf" id="tf_btn_${q.id}_${item.id}_false" onclick="selectPart2Item(${q.id}, '${item.id}', false)">Sai</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    });
+
+    qEl.innerHTML = `
+      <div class="question-title">
+        <span class="question-badge-num">Câu ${q.id}</span>
+        [Trắc nghiệm Đúng / Sai]
+      </div>
+      <div class="context-block">${q.context}</div>
+      <table class="tf-table">
+        <thead>
+          <tr>
+            <th>Lệnh hỏi</th>
+            <th style="text-align:center;">Thí sinh chọn</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    `;
+    p2Box.appendChild(qEl);
+  });
+  container.appendChild(p2Box);
+
+  // PHẦN III
+  const p3Box = document.createElement('div');
+  p3Box.className = 'exam-section-card';
+  p3Box.innerHTML = `
+    <div class="section-banner">
+      <h3>PHẦN III. Câu trắc nghiệm trả lời ngắn</h3>
+      <p>Thí sinh trả lời từ Câu 1 đến Câu 6. Điền kết quả số vào ô trả lời. (Mỗi câu trả lời đúng được 0,25 điểm)</p>
+    </div>
+  `;
+
+  currentExam.part3.forEach(q => {
+    const qEl = document.createElement('div');
+    qEl.className = 'question-item';
+    qEl.id = `q_p3_${q.id}`;
+
+    qEl.innerHTML = `
+      <div class="question-title">
+        <span class="question-badge-num">Câu ${q.id}</span>
+        ${q.question}
+      </div>
+      <div class="short-input-wrap">
+        <label style="font-size:0.88rem; font-weight:600; color:#334155;">Đáp số:</label>
+        <input type="text" class="short-input" id="short_input_${q.id}" placeholder="..." oninput="handlePart3Input(${q.id}, this.value)">
+      </div>
+    `;
+    p3Box.appendChild(qEl);
+  });
+  container.appendChild(p3Box);
+}
+
+// Answer Selection Handlers
+function selectPart1Option(qId, letter) {
+  examAnswers.part1[qId] = letter;
+  ['A', 'B', 'C', 'D'].forEach(l => {
+    const lbl = document.getElementById(`opt_lbl_${qId}_${l}`);
+    if (lbl) {
+      if (l === letter) {
+        lbl.classList.add('selected');
+        const inp = lbl.querySelector('input');
+        if (inp) inp.checked = true;
+      } else {
+        lbl.classList.remove('selected');
+      }
+    }
+  });
+  updatePaletteState();
+}
+
+function selectPart2Item(qId, subId, val) {
+  if (!examAnswers.part2[qId]) examAnswers.part2[qId] = {};
+  examAnswers.part2[qId][subId] = val;
+
+  const btnTrue = document.getElementById(`tf_btn_${qId}_${subId}_true`);
+  const btnFalse = document.getElementById(`tf_btn_${qId}_${subId}_false`);
+
+  if (val === true) {
+    btnTrue.classList.add('selected-true');
+    btnFalse.classList.remove('selected-false');
+  } else {
+    btnFalse.classList.add('selected-false');
+    btnTrue.classList.remove('selected-true');
+  }
+  updatePaletteState();
+}
+
+function handlePart3Input(qId, val) {
+  val = val.trim();
+  if (val) {
+    examAnswers.part3[qId] = val;
+  } else {
+    delete examAnswers.part3[qId];
+  }
+  updatePaletteState();
+}
+
+// Palette rendering & updates
+function renderPalette() {
+  const p1 = document.getElementById('palettePart1');
+  const p2 = document.getElementById('palettePart2');
+  const p3 = document.getElementById('palettePart3');
+
+  if (p1) p1.innerHTML = '';
+  if (p2) p2.innerHTML = '';
+  if (p3) p3.innerHTML = '';
+
+  for (let i = 1; i <= 18; i++) {
+    if (p1) p1.innerHTML += `<button class="palette-btn" id="pal_p1_${i}" onclick="scrollToQuestion('q_p1_${i}')">${i}</button>`;
+  }
+  for (let i = 1; i <= 4; i++) {
+    if (p2) p2.innerHTML += `<button class="palette-btn" id="pal_p2_${i}" onclick="scrollToQuestion('q_p2_${i}')">${i}</button>`;
+  }
+  for (let i = 1; i <= 6; i++) {
+    if (p3) p3.innerHTML += `<button class="palette-btn" id="pal_p3_${i}" onclick="scrollToQuestion('q_p3_${i}')">${i}</button>`;
+  }
+  updatePaletteState();
+}
+
+function updatePaletteState() {
+  let answeredCount = 0;
+
+  // P1
+  for (let i = 1; i <= 18; i++) {
+    const btn = document.getElementById(`pal_p1_${i}`);
+    if (btn) {
+      if (examAnswers.part1[i]) {
+        btn.classList.add('answered');
+        answeredCount++;
+      } else {
+        btn.classList.remove('answered');
+      }
+    }
+  }
+
+  // P2
+  for (let i = 1; i <= 4; i++) {
+    const btn = document.getElementById(`pal_p2_${i}`);
+    const obj = examAnswers.part2[i];
+    if (btn) {
+      if (obj && Object.keys(obj).length === 4) {
+        btn.classList.add('answered');
+        answeredCount++;
+      } else {
+        btn.classList.remove('answered');
+      }
+    }
+  }
+
+  // P3
+  for (let i = 1; i <= 6; i++) {
+    const btn = document.getElementById(`pal_p3_${i}`);
+    if (btn) {
+      if (examAnswers.part3[i]) {
+        btn.classList.add('answered');
+        answeredCount++;
+      } else {
+        btn.classList.remove('answered');
+      }
+    }
+  }
+
+  const counter = document.getElementById('answeredCounter');
+  if (counter) counter.textContent = `${answeredCount}/28 câu`;
+}
+
+function scrollToQuestion(elId) {
+  const el = document.getElementById(elId);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function confirmExitExam() {
+  if (confirm('Bạn có chắc muốn thoát bài thi này không? Tiến trình làm bài hiện tại sẽ không được lưu.')) {
+    if (examTimerInterval) clearInterval(examTimerInterval);
+    currentExam = null;
+    switchView('viewExamSelect');
+  }
+}
+
+// 4. Submission & Scoring (Chuẩn Bộ GD&ĐT)
+function confirmSubmitExam() {
+  let answeredCount = 0;
+  for (let i = 1; i <= 18; i++) if (examAnswers.part1[i]) answeredCount++;
+  for (let i = 1; i <= 4; i++) if (examAnswers.part2[i] && Object.keys(examAnswers.part2[i]).length === 4) answeredCount++;
+  for (let i = 1; i <= 6; i++) if (examAnswers.part3[i]) answeredCount++;
+
+  const unDone = 28 - answeredCount;
+  const text = unDone > 0 
+    ? `Bạn đã hoàn thành ${answeredCount}/28 câu. Còn ${unDone} câu chưa làm xong. Bạn có chắc chắn muốn nộp bài ngay bây giờ không?`
+    : `Bạn đã hoàn thành toàn bộ 28 câu hỏi. Bạn có chắc chắn muốn nộp bài để xem điểm số không?`;
+
+  const confText = document.getElementById('confirmSubmitText');
+  if (confText) confText.textContent = text;
+  openModal('modalConfirmSubmit');
+}
+
+function normalizeAnswer(str) {
+  if (str === null || str === undefined) return '';
+  return str.toString().trim().toLowerCase().replace(',', '.');
+}
+
+function submitExamFinal(isAuto = false) {
+  closeModal('modalConfirmSubmit');
+  if (examTimerInterval) clearInterval(examTimerInterval);
+
+  const endTime = new Date();
+  const elapsedMs = endTime - examStartTime;
+  const elapsedSec = Math.floor(elapsedMs / 1000);
+  const durMin = Math.floor(elapsedSec / 60);
+  const durSec = elapsedSec % 60;
+  const durationStr = `${durMin} phút ${durSec} giây`;
+
+  // Scoring
+  let p1Score = 0;
+  let p2Score = 0;
+  let p3Score = 0;
+
+  // Phần I: 18 câu x 0.25đ = 4.5đ
+  currentExam.part1.forEach(q => {
+    const studentChoice = examAnswers.part1[q.id];
+    if (studentChoice && studentChoice.toUpperCase() === q.correct.toUpperCase()) {
+      p1Score += 0.25;
+    }
+  });
+
+  // Phần II: 4 câu x 1.0đ = 4.0đ (quy chế BGD: đúng 1 ý = 0.1đ; 2 ý = 0.25đ; 3 ý = 0.5đ; 4 ý = 1.0đ)
+  const p2Scale = [0, 0.1, 0.25, 0.5, 1.0];
+  currentExam.part2.forEach(q => {
+    let correctCount = 0;
+    const studentObj = examAnswers.part2[q.id] || {};
+    q.items.forEach(item => {
+      if (studentObj[item.id] !== undefined && studentObj[item.id] === item.correct) {
+        correctCount++;
+      }
+    });
+    p2Score += p2Scale[correctCount] || 0;
+  });
+
+  // Phần III: 6 câu x 0.25đ = 1.5đ
+  currentExam.part3.forEach(q => {
+    const studentVal = normalizeAnswer(examAnswers.part3[q.id]);
+    const correctVal = normalizeAnswer(q.correct);
+    if (studentVal && studentVal === correctVal) {
+      p3Score += 0.25;
+    }
+  });
+
+  const totalScore = Math.round((p1Score + p2Score + p3Score) * 100) / 100;
+
+  const nowStr = new Date().toLocaleString('vi-VN');
+  const submissionRecord = {
+    id: 'sub_' + Date.now(),
+    timestamp: nowStr,
+    student_name: currentStudent.name,
+    student_class: currentStudent.class,
+    exam_id: currentExam.title,
+    total_score: totalScore,
+    p1_score: p1Score,
+    p2_score: p2Score,
+    p3_score: p3Score,
+    duration: durationStr,
+    answers: JSON.parse(JSON.stringify(examAnswers))
+  };
+
+  const subs = getStudentSubmissions();
+  const existIdx = subs.findIndex(s => s.student_name === currentStudent.name && s.student_class === currentStudent.class && s.exam_id === currentExam.title);
+  if (existIdx >= 0) {
+    subs[existIdx] = submissionRecord;
+  } else {
+    subs.push(submissionRecord);
+  }
+  saveStudentSubmissions(subs);
+
+  // Auto-sync with Google Sheet if configured
+  sendToGoogleSheetLive(submissionRecord);
+
+  // Display result screen
+  displayResultScreen(submissionRecord, currentExam);
+  switchView('viewExamResult');
+  showToast(`Đã nộp bài thành công! Điểm số: ${totalScore}/10`);
+}
+
+function displayResultScreen(sub, exam) {
+  document.getElementById('resTotalScore').textContent = sub.total_score.toFixed(2);
+  document.getElementById('resultSubtitle').textContent = `Thí sinh: ${sub.student_name} • Lớp ${sub.student_class} • ${sub.exam_id} (${sub.timestamp})`;
+
+  document.getElementById('resPart1Score').textContent = `${sub.p1_score.toFixed(2)} / 4.50 đ`;
+  document.getElementById('resPart2Score').textContent = `${sub.p2_score.toFixed(2)} / 4.00 đ`;
+  document.getElementById('resPart3Score').textContent = `${sub.p3_score.toFixed(2)} / 1.50 đ`;
+  document.getElementById('resDuration').textContent = sub.duration;
+
+  renderDetailedSolutions(sub, exam);
+}
+
+function renderDetailedSolutions(sub, exam) {
+  const container = document.getElementById('reviewQuestionsContainer');
+  if (!container) return;
+  container.innerHTML = `
+    <div style="margin:30px 0 20px;">
+      <h3 style="font-size:1.35rem; color:#0d274c; font-weight:800;">
+        HƯỚNG DẪN GIẢI CHI TIẾT & ĐÁP ÁN ĐỐI CHIẾU
+      </h3>
+      <p style="color:var(--text-muted); font-size:0.9rem;">
+        Xem lại chi tiết từng câu làm đúng / sai kèm giải thích cặn kẽ chuẩn phương pháp giải THPT.
+      </p>
+    </div>
+  `;
+
+  // Part I Review
+  const p1Review = document.createElement('div');
+  p1Review.className = 'exam-section-card';
+  p1Review.innerHTML = `
+    <div class="section-banner">
+      <h3>PHẦN I. Lời giải chi tiết Trắc nghiệm (18 câu)</h3>
+    </div>
+  `;
+
+  exam.part1.forEach(q => {
+    const studentAns = sub.answers.part1[q.id] || 'Chưa chọn';
+    const isCorrect = studentAns === q.correct;
+
+    const itemEl = document.createElement('div');
+    itemEl.className = 'question-item';
+
+    let optsHtml = '';
+    ['A', 'B', 'C', 'D'].forEach(letter => {
+      let styleClass = '';
+      if (letter === q.correct) styleClass = 'style="background:#dcfce7; border-color:#16a34a; font-weight:600;"';
+      else if (letter === studentAns && !isCorrect) styleClass = 'style="background:#fee2e2; border-color:#dc2626;"';
+
+      optsHtml += `
+        <div class="option-label" ${styleClass}>
+          <span class="option-letter">${letter}.</span>
+          <span style="font-size:0.92rem;">${q.options[letter] || ''}</span>
+        </div>
+      `;
+    });
+
+    itemEl.innerHTML = `
+      <div class="question-title">
+        <span class="question-badge-num">Câu ${q.id}</span>
+        ${q.question}
+      </div>
+      <div style="margin-bottom:10px; font-size:0.88rem;">
+        <span>Bạn chọn: <strong style="color:${isCorrect ? '#16a34a' : '#dc2626'}">${studentAns}</strong></span> • 
+        <span>Đáp án đúng: <strong style="color:#16a34a">${q.correct}</strong></span>
+      </div>
+      <div class="options-grid">${optsHtml}</div>
+      <div class="solution-box">
+        <h5>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          Lời giải chi tiết:
+        </h5>
+        <p style="white-space:pre-line;">${q.solution}</p>
+      </div>
+    `;
+    p1Review.appendChild(itemEl);
+  });
+  container.appendChild(p1Review);
+
+  // Part II Review
+  const p2Review = document.createElement('div');
+  p2Review.className = 'exam-section-card';
+  p2Review.innerHTML = `
+    <div class="section-banner">
+      <h3>PHẦN II. Lời giải chi tiết Đúng / Sai (4 câu)</h3>
+    </div>
+  `;
+
+  exam.part2.forEach(q => {
+    const itemEl = document.createElement('div');
+    itemEl.className = 'question-item';
+
+    let rowsHtml = '';
+    q.items.forEach(item => {
+      const studentChoice = sub.answers.part2[q.id] ? sub.answers.part2[q.id][item.id] : undefined;
+      const isItemCorrect = studentChoice === item.correct;
+      const choiceStr = studentChoice === true ? 'Đúng' : (studentChoice === false ? 'Sai' : 'Chưa chọn');
+      const correctStr = item.correct ? 'Đúng' : 'Sai';
+
+      rowsHtml += `
+        <tr>
+          <td>
+            <div><strong>${item.id})</strong> ${item.text}</div>
+            <div style="font-size:0.82rem; color:#15803d; margin-top:4px;">
+              <em>→ ${item.solution || ''}</em>
+            </div>
+          </td>
+          <td style="text-align:center; font-weight:600; color:${isItemCorrect ? '#16a34a' : '#dc2626'}">
+            ${choiceStr}
+          </td>
+          <td style="text-align:center; font-weight:700; color:#16a34a;">
+            ${correctStr}
+          </td>
+        </tr>
+      `;
+    });
+
+    itemEl.innerHTML = `
+      <div class="question-title">
+        <span class="question-badge-num">Câu ${q.id}</span>
+        [Trắc nghiệm Đúng / Sai]
+      </div>
+      <div class="context-block">${q.context}</div>
+      <table class="tf-table">
+        <thead>
+          <tr>
+            <th>Lệnh hỏi & Giải thích</th>
+            <th style="text-align:center; width:120px;">Bạn chọn</th>
+            <th style="text-align:center; width:120px;">Đáp án đúng</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    `;
+    p2Review.appendChild(itemEl);
+  });
+  container.appendChild(p2Review);
+
+  // Part III Review
+  const p3Review = document.createElement('div');
+  p3Review.className = 'exam-section-card';
+  p3Review.innerHTML = `
+    <div class="section-banner">
+      <h3>PHẦN III. Lời giải chi tiết Trả lời ngắn (6 câu)</h3>
+    </div>
+  `;
+
+  exam.part3.forEach(q => {
+    const studentAns = sub.answers.part3[q.id] || 'Chưa điền';
+    const isCorrect = normalizeAnswer(studentAns) === normalizeAnswer(q.correct);
+
+    const itemEl = document.createElement('div');
+    itemEl.className = 'question-item';
+
+    itemEl.innerHTML = `
+      <div class="question-title">
+        <span class="question-badge-num">Câu ${q.id}</span>
+        ${q.question}
+      </div>
+      <div style="margin-bottom:12px; font-size:0.88rem;">
+        <span>Bạn điền: <strong style="color:${isCorrect ? '#16a34a' : '#dc2626'}">${studentAns}</strong></span> • 
+        <span>Đáp án chuẩn: <strong style="color:#16a34a">${q.correct}</strong></span>
+      </div>
+      <div class="solution-box">
+        <h5>Lời giải chi tiết:</h5>
+        <p style="white-space:pre-line;">${q.solution}</p>
+      </div>
+    `;
+    p3Review.appendChild(itemEl);
+  });
+  container.appendChild(p3Review);
+}
+
+function scrollToReviewSection() {
+  const container = document.getElementById('reviewQuestionsContainer');
+  if (container) container.scrollIntoView({ behavior: 'smooth' });
+}
+
+function viewMyPreviousResult(examTitle) {
+  const subs = getStudentSubmissions();
+  const mySub = subs.find(s => s.student_name === currentStudent.name && s.student_class === currentStudent.class && s.exam_id === examTitle);
+  if (!mySub) return;
+
+  const exam = EXAMS_DATABASE.find(e => e.title === examTitle);
+  displayResultScreen(mySub, exam);
+  switchView('viewExamResult');
+}
+
+// 5. Teacher Portal
+function openTeacherLoginModal() {
+  const errEl = document.getElementById('teacherLoginError');
+  const pwdEl = document.getElementById('inputTeacherPassword');
+  if (errEl) errEl.style.display = 'none';
+  if (pwdEl) pwdEl.value = '';
+  openModal('modalTeacherLogin');
+}
+
+function closeTeacherLoginModal() {
+  closeModal('modalTeacherLogin');
+}
+
+function handleTeacherLogin(e) {
+  e.preventDefault();
+  const pwd = document.getElementById('inputTeacherPassword').value;
+  if (pwd === 'giaovien123') { // Mật khẩu giáo viên
+    closeTeacherLoginModal();
+    renderTeacherTable();
+    switchView('viewTeacherDashboard');
+    showToast('Đăng nhập Giáo viên thành công!');
+  } else {
+    const errEl = document.getElementById('teacherLoginError');
+    if (errEl) errEl.style.display = 'block';
+  }
+}
+
+function logoutTeacher() {
+  switchView('viewExamSelect');
+}
+
+function renderTeacherTable() {
+  const subs = getStudentSubmissions();
+
+  // Overview Stats
+  const statTotal = document.getElementById('statTotalSubmissions');
+  const statAvg = document.getElementById('statAvgScore');
+  const statMax = document.getElementById('statMaxScore');
+  const statMin = document.getElementById('statMinScore');
+
+  if (statTotal) statTotal.textContent = subs.length;
+  if (subs.length > 0) {
+    const scores = subs.map(s => s.total_score);
+    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+    const max = Math.max(...scores);
+    const min = Math.min(...scores);
+    if (statAvg) statAvg.textContent = avg.toFixed(2);
+    if (statMax) statMax.textContent = max.toFixed(2);
+    if (statMin) statMin.textContent = min.toFixed(2);
+  } else {
+    if (statAvg) statAvg.textContent = '0.0';
+    if (statMax) statMax.textContent = '0.0';
+    if (statMin) statMin.textContent = '0.0';
+  }
+
+  // Populate Class filter
+  const classSelect = document.getElementById('filterSelectClass');
+  if (classSelect) {
+    const currentSelectedClass = classSelect.value;
+    const allClasses = Array.from(new Set(subs.map(s => s.student_class))).filter(Boolean);
+    classSelect.innerHTML = '<option value="ALL">Tất cả các lớp</option>';
+    allClasses.forEach(cls => {
+      const opt = document.createElement('option');
+      opt.value = cls;
+      opt.textContent = `Lớp ${cls}`;
+      classSelect.appendChild(opt);
+    });
+    classSelect.value = currentSelectedClass || 'ALL';
+  }
+
+  // Search & filter
+  const nameSearch = ((document.getElementById('filterSearchName') && document.getElementById('filterSearchName').value) || '').trim().toLowerCase();
+  const examFilter = (document.getElementById('filterSelectExam') && document.getElementById('filterSelectExam').value) || 'ALL';
+  const classFilter = (classSelect && classSelect.value) || 'ALL';
+
+  const filtered = subs.filter(s => {
+    const matchName = s.student_name.toLowerCase().includes(nameSearch);
+    const matchExam = examFilter === 'ALL' || s.exam_id === examFilter;
+    const matchClass = classFilter === 'ALL' || s.student_class === classFilter;
+    return matchName && matchExam && matchClass;
+  });
+
+  const tbody = document.getElementById('teacherTableBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="11" style="text-align:center; padding:30px; color:var(--text-muted);">
+          Chưa có dữ liệu bài làm của học sinh nào.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  filtered.forEach((item, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td style="font-weight:600; color:#0d274c;">${item.student_name}</td>
+      <td><span style="background:#e2e8f0; padding:2px 8px; border-radius:4px; font-size:0.8rem; font-weight:600;">${item.student_class}</span></td>
+      <td><span style="background:#eff6ff; color:#1d4ed8; padding:2px 8px; border-radius:4px; font-weight:600;">${item.exam_id}</span></td>
+      <td style="font-weight:800; font-size:1.05rem; color:#16a34a; font-family:'JetBrains Mono',monospace;">${item.total_score.toFixed(2)}</td>
+      <td>${item.p1_score.toFixed(2)}</td>
+      <td>${item.p2_score.toFixed(2)}</td>
+      <td>${item.p3_score.toFixed(2)}</td>
+      <td style="font-size:0.82rem; color:var(--text-muted);">${item.duration}</td>
+      <td style="font-size:0.82rem; color:var(--text-muted);">${item.timestamp}</td>
+      <td style="text-align:center;">
+        <div style="display:flex; justify-content:center; gap:6px;">
+          <button class="btn btn-outline btn-sm" onclick="viewStudentDetailedExam('${item.id}')">Xem chi tiết</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteSingleSubmission('${item.id}')">Xóa</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function viewStudentDetailedExam(subId) {
+  const subs = getStudentSubmissions();
+  const item = subs.find(s => s.id === subId);
+  if (!item) return;
+
+  const exam = EXAMS_DATABASE.find(e => e.title === item.exam_id);
+  if (!exam) return;
+
+  document.getElementById('modalDetailStudentTitle').textContent = `Bài làm của: ${item.student_name} (Lớp ${item.student_class})`;
+  document.getElementById('modalDetailStudentSub').textContent = `${item.exam_id} • Điểm tổng: ${item.total_score.toFixed(2)}/10 • Thời gian: ${item.duration} • Nộp lúc: ${item.timestamp}`;
+
+  const container = document.getElementById('modalDetailContent');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const banner = document.createElement('div');
+  banner.style.cssText = 'background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:16px; margin-bottom:18px; display:flex; justify-content:space-around; text-align:center;';
+  banner.innerHTML = `
+    <div><div style="font-size:0.8rem; color:var(--text-muted);">Tổng điểm</div><div style="font-size:1.5rem; font-weight:800; color:#16a34a;">${item.total_score.toFixed(2)}</div></div>
+    <div><div style="font-size:0.8rem; color:var(--text-muted);">Phần I (TN)</div><div style="font-size:1.2rem; font-weight:700;">${item.p1_score.toFixed(2)} / 4.5</div></div>
+    <div><div style="font-size:0.8rem; color:var(--text-muted);">Phần II (Đ/S)</div><div style="font-size:1.2rem; font-weight:700;">${item.p2_score.toFixed(2)} / 4.0</div></div>
+    <div><div style="font-size:0.8rem; color:var(--text-muted);">Phần III (Ngắn)</div><div style="font-size:1.2rem; font-weight:700;">${item.p3_score.toFixed(2)} / 1.5</div></div>
+  `;
+  container.appendChild(banner);
+
+  // Part I Detail
+  const p1Header = document.createElement('h4');
+  p1Header.style.cssText = 'font-size:1.1rem; color:#0d274c; margin:18px 0 10px; font-weight:700;';
+  p1Header.textContent = 'Phần I: Câu hỏi trắc nghiệm (18 câu)';
+  container.appendChild(p1Header);
+
+  exam.part1.forEach(q => {
+    const studentAns = item.answers.part1[q.id] || '(Chưa làm)';
+    const isOk = studentAns === q.correct;
+    const qBox = document.createElement('div');
+    qBox.style.cssText = 'border:1px solid #e2e8f0; border-radius:var(--radius-sm); padding:12px; margin-bottom:10px; font-size:0.88rem;';
+    qBox.innerHTML = `
+      <div><strong>Câu ${q.id}:</strong> ${q.question}</div>
+      <div style="margin-top:6px;">
+        Học sinh chọn: <strong style="color:${isOk ? '#16a34a' : '#dc2626'}">${studentAns}</strong> | 
+        Đáp án đúng: <strong style="color:#16a34a">${q.correct}</strong>
+      </div>
+    `;
+    container.appendChild(qBox);
+  });
+
+  // Part II Detail
+  const p2Header = document.createElement('h4');
+  p2Header.style.cssText = 'font-size:1.1rem; color:#0d274c; margin:18px 0 10px; font-weight:700;';
+  p2Header.textContent = 'Phần II: Câu hỏi Đúng / Sai (4 câu)';
+  container.appendChild(p2Header);
+
+  exam.part2.forEach(q => {
+    const qBox = document.createElement('div');
+    qBox.style.cssText = 'border:1px solid #e2e8f0; border-radius:var(--radius-sm); padding:12px; margin-bottom:10px; font-size:0.88rem;';
+    let itemsStr = '';
+    q.items.forEach(it => {
+      const stChoice = item.answers.part2[q.id] ? item.answers.part2[q.id][it.id] : undefined;
+      const choiceTxt = stChoice === true ? 'Đúng' : (stChoice === false ? 'Sai' : '(Chưa làm)');
+      const isCorrect = stChoice === it.correct;
+      itemsStr += `
+        <div style="margin-left:14px; margin-top:4px;">
+          • Ý ${it.id}): ${it.text} 
+          → Học sinh chọn: <strong style="color:${isCorrect ? '#16a34a' : '#dc2626'}">${choiceTxt}</strong> 
+          (Đáp án đúng: <strong style="color:#16a34a">${it.correct ? 'Đúng' : 'Sai'}</strong>)
+        </div>
+      `;
+    });
+    qBox.innerHTML = `<div><strong>Câu ${q.id}:</strong></div>${itemsStr}`;
+    container.appendChild(qBox);
+  });
+
+  // Part III Detail
+  const p3Header = document.createElement('h4');
+  p3Header.style.cssText = 'font-size:1.1rem; color:#0d274c; margin:18px 0 10px; font-weight:700;';
+  p3Header.textContent = 'Phần III: Câu hỏi trả lời ngắn (6 câu)';
+  container.appendChild(p3Header);
+
+  exam.part3.forEach(q => {
+    const studentAns = item.answers.part3[q.id] || '(Chưa làm)';
+    const isOk = normalizeAnswer(studentAns) === normalizeAnswer(q.correct);
+    const qBox = document.createElement('div');
+    qBox.style.cssText = 'border:1px solid #e2e8f0; border-radius:var(--radius-sm); padding:12px; margin-bottom:10px; font-size:0.88rem;';
+    qBox.innerHTML = `
+      <div><strong>Câu ${q.id}:</strong> ${q.question}</div>
+      <div style="margin-top:6px;">
+        Học sinh điền: <strong style="color:${isOk ? '#16a34a' : '#dc2626'}">${studentAns}</strong> | 
+        Đáp án chuẩn: <strong style="color:#16a34a">${q.correct}</strong>
+      </div>
+    `;
+    container.appendChild(qBox);
+  });
+
+  openModal('modalStudentDetail');
+}
+
+function deleteSingleSubmission(subId) {
+  if (confirm('Bạn có chắc chắn muốn xóa bài thi này không?')) {
+    let subs = getStudentSubmissions();
+    subs = subs.filter(s => s.id !== subId);
+    saveStudentSubmissions(subs);
+    renderTeacherTable();
+    showToast('Đã xóa bài thi!');
+  }
+}
+
+// 6. Reset All Data for new class
+function confirmResetAllData() {
+  const confirm1 = confirm('CẢNH BÁO: Bạn có chắc chắn muốn XÓA TOÀN BỘ DỮ LIỆU CŨ để làm lại từ đầu với lớp khác không?');
+  if (!confirm1) return;
+
+  const confirm2 = confirm('Hành động này sẽ xóa tất cả kết quả điểm số và bài thi của học sinh trên hệ thống. Tiếp tục?');
+  if (!confirm2) return;
+
+  localStorage.removeItem('chemistry_exam_submissions');
+  renderTeacherTable();
+  renderExamSelectionList();
+  showToast('Đã xóa sạch dữ liệu cũ thành công! Bạn có thể bắt đầu với lớp mới.');
+
+  clearGoogleSheetLive();
+}
+
+// 7. Export to Excel (.csv format with UTF-8 BOM)
+function exportToExcel() {
+  const subs = getStudentSubmissions();
+  if (subs.length === 0) {
+    showToast('Chưa có dữ liệu để xuất file Excel!');
+    return;
+  }
+
+  const header = ['STT', 'Họ và tên', 'Lớp', 'Đề thi', 'Tổng điểm', 'Điểm Phần I', 'Điểm Phần II', 'Điểm Phần III', 'Thời gian làm bài', 'Thời điểm nộp'];
+  const rows = [header.join(',')];
+
+  subs.forEach((s, idx) => {
+    const row = [
+      idx + 1,
+      `"${s.student_name.replace(/"/g, '""')}"`,
+      `"${s.student_class}"`,
+      `"${s.exam_id}"`,
+      s.total_score.toFixed(2),
+      s.p1_score.toFixed(2),
+      s.p2_score.toFixed(2),
+      s.p3_score.toFixed(2),
+      `"${s.duration}"`,
+      `"${s.timestamp}"`
+    ];
+    rows.push(row.join(','));
+  });
+
+  const csvContent = '\uFEFF' + rows.join('\r\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', `Bang_Diem_Hoa_THPT_Quang_Trung_${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast('Đã xuất file bảng điểm Excel thành công!');
+}
+
+// 8. Google Sheets Live Integration
+function checkSavedGSheet() {
+  const url = localStorage.getItem('chemistry_gsheet_url');
+  if (url) {
+    const inp = document.getElementById('inputGSheetUrl');
+    if (inp) inp.value = url;
+  }
+}
+
+function saveGSheetConfig() {
+  const inp = document.getElementById('inputGSheetUrl');
+  if (!inp) return;
+  const url = inp.value.trim();
+  localStorage.setItem('chemistry_gsheet_url', url);
+  showToast('Đã lưu cấu hình Google Sheets URL!');
+}
+
+function copyAppsScriptCode() {
+  const preEl = document.getElementById('appsScriptCodeText');
+  if (!preEl) return;
+  const text = preEl.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Đã sao chép mã Google Apps Script vào bộ nhớ tạm!');
+  }).catch(() => {
+    showToast('Không thể tự động sao chép. Vui lòng chọn và nhấn Ctrl+C!');
+  });
+}
+
+function sendToGoogleSheetLive(sub) {
+  const gsheetUrl = localStorage.getItem('chemistry_gsheet_url');
+  if (!gsheetUrl) return;
+
+  fetch(gsheetUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'submit_test',
+      data: sub
+    })
+  }).then(() => {
+    console.log('Synchronized to Google Sheet');
+  }).catch(err => {
+    console.warn('Google Sheet sync error:', err);
+  });
+}
+
+function syncWithGoogleSheet() {
+  const gsheetUrl = localStorage.getItem('chemistry_gsheet_url');
+  if (!gsheetUrl) {
+    showToast('Vui lòng dán và Lưu URL Google Apps Script trước!');
+    return;
+  }
+
+  showToast('Đang kết nối và tải dữ liệu từ Google Sheets...');
+
+  fetch(gsheetUrl)
+    .then(res => res.json())
+    .then(resp => {
+      if (resp && resp.status === 'success' && Array.isArray(resp.data)) {
+        const currentSubs = getStudentSubmissions();
+        resp.data.forEach(item => {
+          const exist = currentSubs.find(s => s.student_name === item.student_name && s.student_class === item.student_class && s.exam_id === item.exam_id);
+          if (!exist) {
+            currentSubs.push({
+              id: 'gsheet_' + Date.now() + Math.random(),
+              timestamp: item.timestamp,
+              student_name: item.student_name,
+              student_class: item.student_class,
+              exam_id: item.exam_id,
+              total_score: parseFloat(item.total_score) || 0,
+              p1_score: parseFloat(item.p1_score) || 0,
+              p2_score: parseFloat(item.p2_score) || 0,
+              p3_score: parseFloat(item.p3_score) || 0,
+              duration: item.duration,
+              answers: { part1: {}, part2: {}, part3: {} }
+            });
+          }
+        });
+        saveStudentSubmissions(currentSubs);
+        renderTeacherTable();
+        showToast('Đồng bộ thành công dữ liệu từ Google Sheets!');
+      } else {
+        showToast('Không lấy được dữ liệu từ Google Sheets hoặc định dạng chưa đúng.');
+      }
+    })
+    .catch(() => {
+      showToast('Lỗi kết nối tới Google Sheets. Hãy kiểm tra lại URL triển khai Web App!');
+    });
+}
+
+function clearGoogleSheetLive() {
+  const gsheetUrl = localStorage.getItem('chemistry_gsheet_url');
+  if (!gsheetUrl) return;
+
+  fetch(gsheetUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'clear_all' })
+  }).then(() => {
+    showToast('Đã gửi lệnh xóa dữ liệu trên Google Sheets!');
+  }).catch(err => {
+    console.warn('Lỗi khi xóa trên Google Sheets:', err);
+  });
+}
+
+// Modal Helpers
+function openModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+function closeModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('active');
+}
+
+  </script>
+</body>
+</html>
